@@ -1,0 +1,8 @@
+Enable diskpart integration 
+
+On  : rename this file to "enabled=1"
+Off : rename this file to "enabled=0"
+
+Commandline Option: -diskpart:"path to script" // can be relative to this folder
+
+Hotkey File Dialog: Ctrl + Shift + D

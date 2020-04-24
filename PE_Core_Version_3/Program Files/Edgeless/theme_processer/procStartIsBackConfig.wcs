@@ -1,0 +1,11 @@
+CALL @windows1
+_SUB windows1,W300H170,资源包管理器,,Icon\theme.ico,,
+
+IMAG Image1,L22T25W25H25,%CurDir%\Icon\StartIsBackConfig.png
+
+LABE Label1,L57T26W280H24,这是一个Edgeless开始菜单样式配置文件\n您希望如何处理这个配置文件？
+
+ITEM Button1,L30T80W100H40,设为默认,TEAM exec =!setTheme.cmd esc|exec =!instTheme.cmd esc|exec tip.wcs|kill \资源包管理器,0
+ITEM Button2,L170T80W100H40,预览,TEAM exec =!setTheme.cmd esc|exec tip.wcs|kill \资源包管理器,0
+
+_END

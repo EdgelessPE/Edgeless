@@ -1,0 +1,5 @@
+{
+  "name":"UI_Shutdown",
+  "title":"%{Power}",
+  "baricon":"power.ico"
+}

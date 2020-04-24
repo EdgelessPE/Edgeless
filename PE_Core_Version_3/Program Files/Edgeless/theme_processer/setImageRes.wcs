@@ -1,0 +1,15 @@
+ifex X:\Users\Theme\Backup\imageres.dll,!file %Systemroot%\System32\imageres.dll=>X:\Users\Theme\Backup\imageres.dll
+ifex X:\Users\Theme\Backup\imagesp1.dll,!file %Systemroot%\System32\imagesp1.dll=>X:\Users\Theme\Backup\imagesp1.dll
+
+file %Systemroot%\System32\imagesp1.dll
+file %Systemroot%\System32\imageres.dll
+
+file X:\Users\Theme\Imageres_unpack\imageres.dll=>%Systemroot%\System32\imageres.dll
+file X:\Users\Theme\Imageres_unpack\imagesp1.dll=>%Systemroot%\System32\imagesp1.dll
+
+IFEX X:\Users\DelayRefresh,!ENVI @@DeskTopFresh=clearicon;1
+IFEX X:\Users\DelayRefresh,!kill explorer
+IFEX X:\Users\DelayRefresh,!file X:\Users\Default\AppData\Local\Microsoft\Windows\Explorer\*.db
+
+IFEX X:\Users\NoESSTip,!TIPS Edgeless主题包管理器,ESS资源包应用完毕,3000,4,
+IFEX X:\Users\NoESSTip,!WAIT 4000

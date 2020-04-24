@@ -1,0 +1,6 @@
+BROW Tag,,ÇëÑ¡Ôñ±ÚÖ½,
+FIND $%Tag%=,!Call set
+
+_SUB set
+wall "%Tag%"
+_END

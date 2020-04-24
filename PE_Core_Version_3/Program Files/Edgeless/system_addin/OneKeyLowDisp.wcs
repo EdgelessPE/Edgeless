@@ -1,0 +1,36 @@
+call @windows1
+
+_SUB windows1,W300H130,启用低分辨率模式,,Shell32.DLL#34,,
+
+DISP w1024 h768 b32 f60
+KILL explorer
+
+ITEM Button1,L40T65W75H25,是,call windows2,0
+ITEM Button2,L180T65W75H25,否,kill \启用低分辨率模式,0
+
+LABE Label1,L20T20W260H30,您使用了降低分辨率快捷键，是否启用低分辨率模式以便以后启动Edgeless时使用低分辨率？
+_END
+
+
+
+
+_SUB windows2,W300H120,低分辨率模式已启用,,Shell32.DLL#34,,
+
+//查找Edgeless盘符
+FORX !\Edgeless\version.txt,EL_Path,1,EXEC !cmd /c "echo %time% 智能降低分辨率程序-用户确认写入 >>X:\Users\Log.txt"
+MSTR EL_Part=0,1,%EL_Path%
+EXEC !cmd /c "echo %time% 智能降低分辨率程序-使用%EL_Part%作为Edgeless分区 >>X:\Users\Log.txt"
+
+//写入分辨率.txt
+IFEX %EL_Part%:\Edgeless\Config,!MDIR %EL_Part%:\Edgeless\Config
+EXEC =!cmd /c "echo w1024 h768 b32 f60 >%EL_Part%:\Edgeless\Config\分辨率.txt"
+IFEX %EL_Part%:\Edgeless\Config\分辨率.txt,!{
+EXEC !"X:\Program Files\Edgeless\dynamic_creator\dynamic_tip.cmd" 5000 智能降低分辨率程序 向%EL_Part%分区写入文件失败，低分辨率模式启用失败
+kill \低分辨率模式已启用
+kill \启用低分辨率模式
+}
+
+ITEM Button2,L110T55W75H25,确认,team kill \低分辨率模式已启用|kill \启用低分辨率模式,0
+
+LABE Label1,L20T10W260H35,低分辨率模式已启用，需要恢复自动调节分辨率的状态请删除U盘盘符:\Edgeless\Config\分辨率.txt
+_END

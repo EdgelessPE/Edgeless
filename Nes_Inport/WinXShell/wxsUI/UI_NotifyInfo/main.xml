@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window caption="0,0,0,0" defaultfontcolor="#FFFFFFFF" size="360,80">
+    <Font default="true" id="16" name="微软雅黑" shared="true" size="16" />
+    <Font id="24" name="微软雅黑" shared="true" size="24" />
+
+    <VerticalLayout bkcolor="#FF005A9E"  height="80">
+        <HorizontalLayout>
+            <Label name="$icon" padding="10,16,10,0" bkimage="info.png" height="48" width="48"  />
+            <VerticalLayout padding="0,5,0,0" >
+                <Label name="$title" />
+                <Text name="$info" textcolor="#FF99C7EB" />
+            </VerticalLayout>
+            <Button name="::closebtn" bkimage="file='close.png'" hotimage="file='close_hot.png'" width="24" height="24" padding="0,5,5,0" />
+        </HorizontalLayout>
+    </VerticalLayout>
+</Window>

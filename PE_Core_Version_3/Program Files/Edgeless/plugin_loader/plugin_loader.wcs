@@ -1,0 +1,8 @@
+BROW Tag,,请选择插件包
+FIND $%Tag%=,!Call NO_CAB
+
+_SUB NO_CAB
+exec =load.cmd %Tag%
+TIPS Edgeless自定义插件加载程序,%Tag%加载完成！,2000,4,
+kill explorer.exe
+WAIT 3000

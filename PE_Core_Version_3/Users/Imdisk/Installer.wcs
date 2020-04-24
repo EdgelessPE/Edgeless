@@ -1,0 +1,29 @@
+CALL @windows1
+_SUB windows1,W280H265,安装系统镜像,,X:\Users\Imdisk\Icon\win.ico,,
+
+LABE Label1,L110T210W60H20,查看帮助,call @qrcode
+
+READ X:\Users\Imdisk\tark.txt,1,tark
+
+ITEM Button1,L20T20W240H50,使用Windows原版安装程序,TEAM EXEC %tark%:\setup.exe|kill \安装系统镜像,X:\Users\Imdisk\Icon\setup.ico
+ITEM Button2,L20T80W240H50,使用第三方工具NTSetup,TEAM EXEC %tark%:\sources\install.esd|EXEC %tark%:\sources\install.wim|kill \安装系统镜像,X:\Users\Imdisk\Icon\ntsetup.ico
+ITEM Button3,L20T140W240H50,浏览镜像目录,TEAM exec explorer.exe %tark%:\|kill \安装系统镜像,X:\Users\Imdisk\Icon\explorer.ico
+
+IFEX %tark%:\setup.exe,!ENVI @Button1.Enable=0
+ENVI @Button2.Enable=0
+IFEX %tark%:\sources\install.esd,ENVI @Button2.Enable=1
+IFEX %tark%:\sources\install.wim,ENVI @Button2.Enable=1
+
+
+_END
+
+
+
+
+
+_SUB qrcode,W180H190, ,,X:\Users\Imdisk\Icon\win.ico,,
+
+LABE Label2,L45T10W160H20,扫一扫获取帮助
+IMAG IMG1,L30T30W120H120,X:\Users\Imdisk\Icon\qrcode.png
+
+_END

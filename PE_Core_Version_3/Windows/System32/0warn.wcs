@@ -1,0 +1,31 @@
+logo -
+TEAM ENVI T1=0|ENVI T2=7|CALL @windows1
+_SUB TIM1
+CALC #SUBS2=%T1%+1
+ENVI T1=%SUBS2%
+ENVI @Pbar1=%T1%
+_END
+
+_SUB TIM2
+CALC #SUBS1=%T2%-1
+ENVI T2=%SUBS1%
+ENVI @LabelK=%T2%秒后自动运行外置脚本
+IFEX $%T2%<1,kill \安全警告
+_END
+
+
+
+
+
+_SUB windows1,W350H180,安全警告,,Shell32.DLL#77,,
+
+PBAR Pbar1,L30T15W110H13,1
+LABE LabelK,L150T15W150H12,7秒后自动运行外置脚本
+
+ITEM Button1,L20T90W250H50,一脸懵？快点这里取消！！！,team exec =cmd /c "md X:\Users\useins"|kill \安全警告,0
+ITEM Button2,L280T90W50H50,继续,kill \安全警告,0
+
+LABE Label1,L20T40W300H50,潜在的安全隐患警告：发现外置Launcher脚本。该脚本可能包含恶意代码从而破坏您的计算机。如果您没有添加过外置的Launcher脚本，请立即按下“取消”按钮！！！
+TIME Timer1,50,CALL TIM1
+TIME Timer2,1000,CALL TIM2
+_END

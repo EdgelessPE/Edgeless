@@ -1,0 +1,25 @@
+CALL @windows1
+_SUB windows1,W380H300,主题包管理器,,Icon\theme.ico,,
+
+IMAG Image1,L60T25W40H40,%CurDir%\Icon\mix.png
+LABE Label1,L120T35W380H24,Edgeless主题混搭管理,,,14
+
+ITEM Button1,L20T90W166H40,    图标资源包,exec X:\Users\Theme\ThemePack_unpack\IconPack.eis,%CurDir%\Icon\IconPack.ico
+ITEM Button2,L194T90W166H40,     系统图标资源包,exec X:\Users\Theme\ThemePack_unpack\SystemIconPack.ess,%CurDir%\Icon\SystemIconPack.ico
+
+ITEM Button3,L20T150W166H40,   鼠标样式资源包,exec X:\Users\Theme\ThemePack_unpack\MouseStyle.ems,%CurDir%\Icon\MouseStyle.ico
+ITEM Button4,L194T150W166H40,     开始菜单样式配置,exec X:\Users\Theme\ThemePack_unpack\StartIsBackConfig.esc,%CurDir%\Icon\StartIsBackConfig.ico
+
+ITEM Button5,L20T210W166H40,    LoadScreen资源包,exec X:\Users\Theme\ThemePack_unpack\LoadScreen.els,%CurDir%\Icon\LoadScreen.ico
+ITEM Button6,L194T210W166H40,     壁纸,exec procWallPaper.wcs,%CurDir%\Icon\WallPaper.ico
+
+
+
+IFEX X:\Users\Theme\ThemePack_unpack\IconPack.eis,!ENVI @Button1.Enable=0
+IFEX X:\Users\Theme\ThemePack_unpack\SystemIconPack.ess,!ENVI @Button2.Enable=0
+IFEX X:\Users\Theme\ThemePack_unpack\MouseStyle.ems,!ENVI @Button3.Enable=0
+IFEX X:\Users\Theme\ThemePack_unpack\StartIsBackConfig.esc,!ENVI @Button4.Enable=0
+IFEX X:\Users\Theme\ThemePack_unpack\LoadScreen.els,!ENVI @Button5.Enable=0
+IFEX X:\Users\Theme\ThemePack_unpack\WallPaper.jpg,!ENVI @Button6.Enable=0
+ 
+_END

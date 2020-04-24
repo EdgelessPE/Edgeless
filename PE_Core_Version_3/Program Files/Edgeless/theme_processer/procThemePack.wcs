@@ -1,0 +1,27 @@
+CALL @windows1
+_SUB windows1,W450H300,主题包管理器,,Icon\theme.ico,,
+
+LABE Label1,L58T25W380H24,这是一个Edgeless主题包文件，您希望如何处理这个主题包？
+
+EDIT|= Edit1,L32T70W400H100,X:\Users\Theme\ThemePack_unpack\Intro.txt,,0x008
+
+ITEM Button1,L40T200W100H40,设为默认,team call @windows2|kill \主题包管理器,0
+ITEM Button2,L170T200W100H40,混搭,exec mixTheme.wcs,0
+ITEM Button3,L300T200W100H40,预览,team call @windows3|kill \主题包管理器,0
+
+_END
+
+
+_SUB windows2
+EXEC tipETH.wcs
+EXEC =!instTheme.cmd eth
+EXEC setTheme.cmd eth
+KILL \处理主题包
+_END
+
+
+_SUB windows3
+EXEC tipETH.wcs
+EXEC setTheme.cmd eth
+KILL \处理主题包
+_END

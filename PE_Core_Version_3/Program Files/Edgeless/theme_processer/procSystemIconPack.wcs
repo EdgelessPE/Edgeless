@@ -1,0 +1,35 @@
+CALL @windows1
+_SUB windows1,W300H205,资源包管理器,,Icon\theme.ico,,
+
+IMAG Image1,L22T25W25H25,%CurDir%\Icon\SystemIconPack.png
+
+LABE Label1,L57T26W280H24,这是一个Edgeless系统图标资源包文件\n您希望如何处理这个资源包？
+
+ITEM Button1,L30T80W100H40,设为默认,call @windows2,0
+ITEM Button2,L170T80W100H40,预览,call @windows3,0
+ITEM Button3,L30T130W240H30,恢复系统默认图标,call @windows4,0
+
+_END
+
+
+
+_SUB windows2
+EXEC tipESS.wcs
+EXEC =!instTheme.cmd ess
+EXEC =!setTheme.cmd ess
+KILL \资源包管理器
+_END
+
+
+_SUB windows3
+EXEC tipESS.wcs
+EXEC =!setTheme.cmd ess
+KILL \资源包管理器
+_END
+
+
+_SUB windows4
+EXEC tipESS.wcs
+EXEC =!recImageRes.cmd
+KILL \资源包管理器
+_END

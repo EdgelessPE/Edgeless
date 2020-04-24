@@ -1,0 +1,277 @@
+[Version]
+signature = "$Windows NT$"
+Provider = "LTR Data"
+DriverVer=11/19/2018,6.0.6001.18000
+
+
+[SourceDisksNames]
+1 = "ImDisk Virtual Disk Driver ∞≤◊∞¥≈≈Ã"
+
+
+[SourceDisksFiles.x86]
+awealloc.sys = 1,awealloc\i386
+imdisk.sys = 1,sys\i386
+imdsksvc.exe = 1,svc\i386
+imdisk.cpl = 1,cpl\i386
+imdisk.exe = 1,cli\i386
+imdisk.inf = 1
+imdisk.pnf = 1
+uninstall_imdisk.cmd = 1
+
+
+[SourceDisksFiles.ia64]
+awealloc.sys = 1,awealloc\ia64
+imdisk.sys = 1,sys\ia64
+imdsksvc.exe = 1,svc\ia64
+imdisk.cpl = 1,cpl\ia64
+imdisk.exe = 1,cli\ia64
+imdisk.inf = 1
+imdisk.pnf = 1
+uninstall_imdisk.cmd = 1
+
+
+[SourceDisksFiles.amd64]
+awealloc.sys = 1,awealloc\amd64
+imdisk.sys = 1,sys\amd64
+imdsksvc.exe = 1,svc\amd64
+imdisk.cpl = 1,cpl\amd64
+imdisk.exe = 1,cli\amd64
+imdisk.inf = 1
+imdisk.pnf = 1
+uninstall_imdisk.cmd = 1
+
+
+[SourceDisksFiles.arm]
+awealloc.sys = 1,awealloc\arm
+imdisk.sys = 1,sys\arm
+imdsksvc.exe = 1,svc\arm
+imdisk.cpl = 1,cpl\arm
+imdisk.exe = 1,cli\arm
+imdisk.inf = 1
+imdisk.pnf = 1
+uninstall_imdisk.cmd = 1
+
+
+[SourceDisksFiles.arm64]
+awealloc.sys = 1,awealloc\arm64
+imdisk.sys = 1,sys\arm64
+imdsksvc.exe = 1,svc\arm64
+imdisk.cpl = 1,cpl\arm64
+imdisk.exe = 1,cli\arm64
+imdisk.inf = 1
+imdisk.pnf = 1
+uninstall_imdisk.cmd = 1
+
+
+[DestinationDirs]
+ImDiskExeFiles = 11
+ImDiskExe32Files = 16425
+ImDiskSysFiles = 12
+ImDiskInfFiles = 17
+ImDiskPnfFiles = 17
+
+
+[DefaultInstall.ntx86]
+CopyFiles = ImDiskSysFiles, ImDiskExeFiles, ImDiskInfFiles
+AddReg = ImDiskAddReg
+DelReg = ImDiskDelOldReg
+
+
+[DefaultUninstall.ntx86]
+DelFiles = ImDiskSysFiles, ImDiskExeFiles, ImDiskInfFiles, ImDiskPnfFiles
+DelReg = ImDiskDelReg
+
+
+[DefaultInstall.ntarm]
+CopyFiles = ImDiskSysFiles, ImDiskExeFiles, ImDiskInfFiles
+AddReg = ImDiskAddReg
+DelReg = ImDiskDelOldReg
+
+
+[DefaultUninstall.ntarm]
+DelFiles = ImDiskSysFiles, ImDiskExeFiles, ImDiskInfFiles, ImDiskPnfFiles
+DelReg = ImDiskDelReg
+
+
+[DefaultInstall.ntamd64]
+CopyFiles = ImDiskSysFiles, ImDiskExeFiles, ImDiskExe32Files, ImDiskInfFiles
+AddReg = ImDiskAddReg
+DelReg = ImDiskDelOldReg
+
+
+[DefaultUninstall.ntamd64]
+DelFiles = ImDiskSysFiles, ImDiskExeFiles, ImDiskExe32Files, ImDiskInfFiles, ImDiskPnfFiles
+DelReg = ImDiskDelReg
+
+
+[DefaultInstall.ntarm64]
+CopyFiles = ImDiskSysFiles, ImDiskExeFiles, ImDiskExe32Files, ImDiskInfFiles
+AddReg = ImDiskAddReg
+DelReg = ImDiskDelOldReg
+
+
+[DefaultUninstall.ntarm64]
+DelFiles = ImDiskSysFiles, ImDiskExeFiles, ImDiskExe32Files, ImDiskInfFiles, ImDiskPnfFiles
+DelReg = ImDiskDelReg
+
+
+[DefaultInstall.ntia64]
+CopyFiles = ImDiskSysFiles, ImDiskExeFiles, ImDiskExe32Files, ImDiskInfFiles
+AddReg = ImDiskAddReg
+DelReg = ImDiskDelOldReg
+
+
+[DefaultUninstall.ntia64]
+DelFiles = ImDiskSysFiles, ImDiskExeFiles, ImDiskExe32Files, ImDiskInfFiles, ImDiskPnfFiles
+DelReg = ImDiskDelReg
+
+
+[DefaultInstall.ntx86.Services]
+AddService = AWEAlloc, , AWEAllocDrv
+AddService = ImDisk, , ImDskDrv
+AddService = ImDskSvc, , ImDskSvc
+
+
+[DefaultUninstall.ntx86.Services]
+DelService = AWEAlloc
+DelService = ImDisk
+DelService = ImDskSvc
+
+
+[DefaultInstall.ntarm.Services]
+AddService = AWEAlloc, , AWEAllocDrv
+AddService = ImDisk, , ImDskDrv
+AddService = ImDskSvc, , ImDskSvc
+
+
+[DefaultUninstall.ntarm.Services]
+DelService = AWEAlloc
+DelService = ImDisk
+DelService = ImDskSvc
+
+
+[DefaultInstall.ntamd64.Services]
+AddService = AWEAlloc, , AWEAllocDrv
+AddService = ImDisk, , ImDskDrv
+AddService = ImDskSvc, , ImDskSvc
+
+
+[DefaultUninstall.ntamd64.Services]
+DelService = AWEAlloc
+DelService = ImDisk
+DelService = ImDskSvc
+
+
+[DefaultInstall.ntarm64.Services]
+AddService = AWEAlloc, , AWEAllocDrv
+AddService = ImDisk, , ImDskDrv
+AddService = ImDskSvc, , ImDskSvc
+
+
+[DefaultUninstall.ntarm64.Services]
+DelService = AWEAlloc
+DelService = ImDisk
+DelService = ImDskSvc
+
+
+[DefaultInstall.ntia64.Services]
+AddService = AWEAlloc, , AWEAllocDrv
+AddService = ImDisk, , ImDskDrv
+AddService = ImDskSvc, , ImDskSvc
+
+
+[DefaultUninstall.ntia64.Services]
+DelService = AWEAlloc
+DelService = ImDisk
+DelService = ImDskSvc
+
+
+[ImDiskExeFiles]
+imdisk.exe
+imdisk.cpl
+imdsksvc.exe
+uninstall_imdisk.cmd
+
+
+[ImDiskExe32Files]
+imdisk.exe,cli\i386\imdisk.exe
+imdisk.cpl,cpl\i386\imdisk.cpl
+
+
+[ImDiskSysFiles]
+awealloc.sys
+imdisk.sys
+
+
+[ImDiskInfFiles]
+imdisk.inf
+
+
+[ImDiskPnfFiles]
+imdisk.pnf
+
+
+[ImDiskAddReg]
+HKLM, "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ImDisk", "DisplayName", 0, "ImDisk Virtual Disk Driver"
+HKLM, "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ImDisk", "Publisher", 0, "LTR Data"
+HKLM, "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ImDisk", "HelpLink", 0, "http://ltr-data.se/opencode.html"
+HKLM, "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ImDisk", "DisplayVersion", 0, "*"
+HKLM, "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ImDisk", "UninstallString", 0x00020000, """%%SystemRoot%%\system32\cmd.exe"" /c ""%%SystemRoot%%\system32\uninstall_imdisk.cmd"""
+HKLM, "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ImDisk", "DisplayIcon", 0, "%11%\imdisk.cpl"
+HKLM, "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ImDisk", "EstimatedSize", 65537, 320
+HKLM, "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ImDisk", "NoRepair", 65537, 1
+HKLM, "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ImDisk", "NoModify", 65537, 1
+HKLM, "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ImDisk", "Size", 0, ""
+
+HKCR, "*\shell\ImDiskMountFile", , 0, "º”‘ÿµΩ ImDisk –Èƒ‚¥≈≈Ã"
+HKCR, "*\shell\ImDiskMountFile\command", , 0, "rundll32.exe imdisk.cpl,RunDLL_MountFile %%L"
+
+HKCR, "Drive\shell\ImDiskUnmount", , 0, "–∂‘ÿ ImDisk –Èƒ‚¥≈≈Ã"
+HKCR, "Drive\shell\ImDiskUnmount\command", , 0, "rundll32.exe imdisk.cpl,RunDLL_RemoveDevice %%L"
+
+HKCR, "Drive\shell\ImDiskSaveImage", , 0, "¥≈≈Ãƒ⁄»›±£¥ÊŒ™”≥œÒŒƒº˛"
+HKCR, "Drive\shell\ImDiskSaveImage\command", , 0, "rundll32.exe imdisk.cpl,RunDLL_SaveImageFile %%L"
+
+
+[ImDiskDelOldReg]
+HKCR, "*\shell\ImDiskMountFileWriteable"
+
+
+[ImDiskDelReg]
+HKLM, "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ImDisk"
+
+HKCR, "*\shell\ImDiskMountFile"
+
+HKCR, "*\shell\ImDiskMountFileWriteable"
+
+HKCR, "Drive\shell\ImDiskUnmount"
+
+HKCR, "Drive\shell\ImDiskSaveImage"
+
+
+[ImDskDrv]
+DisplayName = "ImDisk Virtual Disk Driver"
+Description = "Disk emulation driver"
+ServiceType = 1
+StartType = 2
+ErrorControl = 0
+ServiceBinary = %12%\imdisk.sys
+
+
+[AWEAllocDrv]
+DisplayName = "AWE Memory Allocation Driver"
+Description = "Driver for physical memory allocation through AWE"
+ServiceType = 1
+StartType = 2
+ErrorControl = 0
+ServiceBinary = %12%\awealloc.sys
+
+
+[ImDskSvc]
+DisplayName = "ImDisk Virtual Disk Driver Helper"
+Description = "Helper service for ImDisk Virtual Disk Driver."
+ServiceType = 16
+StartType = 2
+ErrorControl = 0
+ServiceBinary = %11%\imdsksvc.exe
+

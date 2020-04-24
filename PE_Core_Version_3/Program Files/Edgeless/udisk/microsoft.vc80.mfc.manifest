@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0">
+    <noInheritable></noInheritable>
+    <assemblyIdentity type="win32" name="Microsoft.VC80.MFC" version="8.0.50727.762" processorArchitecture="x86"></assemblyIdentity>
+    <file name="mfc80u.dll" hash="db3a3bfed210d41af3579d948cace75cb74eee0a" hashalg="SHA1"><asmv2:hash xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#"><dsig:Transforms><dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity"></dsig:Transform></dsig:Transforms><dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></dsig:DigestMethod><dsig:DigestValue>AltS/xFid2D3AGUQ6aUhtVQjD+4=</dsig:DigestValue></asmv2:hash></file>
+    <file name="mfcm80u.dll" hash="23bd86592cba61a704d8e63eb8c8e9d72212f7e5" hashalg="SHA1"><asmv2:hash xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#"><dsig:Transforms><dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity"></dsig:Transform></dsig:Transforms><dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></dsig:DigestMethod><dsig:DigestValue>xsOzrzfyAgJe47nMR3YRxsX7R8I=</dsig:DigestValue></asmv2:hash></file>
+</assembly>

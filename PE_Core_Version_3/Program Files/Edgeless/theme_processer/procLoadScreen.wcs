@@ -1,0 +1,84 @@
+CALL @windows1
+_SUB windows1,W300H170,资源包管理器,,Icon\theme.ico,,
+
+IMAG Image1,L22T25W25H25,%CurDir%\Icon\LoadScreen.png
+
+LABE Label1,L57T26W280H24,这是一个Edgeless LoadScreen资源包文件\n您希望如何处理这个资源包？
+
+ITEM Button1,L30T80W100H40,设为默认,TEAM exec =!instTheme.cmd els|exec tip.wcs|kill \资源包管理器,0
+ITEM Button2,L170T80W100H40,预览,TEAM call windows2|kill \资源包管理器,0
+
+_END
+
+_SUB windows2,W300H105,正在解析资源包,,Icon\theme.ico,,
+LABE La1,L25T26W280H24,Edgeless正在处理此LoadScreen资源包，请稍候
+EXEC =!"%ProgramFiles%\Edgeless\theme_processer\setTheme.cmd" els
+KILL \正在解析资源包
+call @windows3
+_END
+
+_SUB windows3,W280H150,选择预览方式,,Icon\theme.ico,,
+ITEM Button1,L15T10W245H40,模拟真实启动间隔的时间,TEAM kill \选择预览方式|call prev1,0
+ITEM Button2,L15T60W245H40,使用均匀间隔的时间,TEAM kill \选择预览方式|call prev2,0
+
+//LABE Label2,L195T74W12H24,每
+//EDIT Edit1,L210T72W20H18,3,,
+//LABE Label3,L235T74W12H24,秒
+
+_END
+
+
+
+
+_SUB prev1,W280H150,拟真预览,,Icon\theme.ico,,
+IFEX X:\Users\Theme\ResoucePack_LoadScreen_unpack\load0.jpg,TEAM LOGO X:\Users\Theme\ResoucePack_LoadScreen_unpack\load0.jpg|TIPS Edgeless LoadScreen Previewer,正在使用load0.jpg,3000,4,
+IFEX X:\Users\Theme\ResoucePack_LoadScreen_unpack\load0.jpg,!TIPS Edgeless LoadScreen Previewer,找不到load0.jpg，维持桌面状态,1000,4,
+WAIT 1000
+
+IFEX X:\Users\Theme\ResoucePack_LoadScreen_unpack\load1.jpg,TEAM LOGO X:\Users\Theme\ResoucePack_LoadScreen_unpack\load1.jpg|TIPS Edgeless LoadScreen Previewer,正在使用load1.jpg,3000,4,
+IFEX X:\Users\Theme\ResoucePack_LoadScreen_unpack\load1.jpg,!TIPS Edgeless LoadScreen Previewer,找不到load1.jpg，维持上一界面,2000,4,
+WAIT 2000
+
+IFEX X:\Users\Theme\ResoucePack_LoadScreen_unpack\load2.jpg,TEAM LOGO X:\Users\Theme\ResoucePack_LoadScreen_unpack\load2.jpg|TIPS Edgeless LoadScreen Previewer,正在使用load2.jpg,3000,4,
+IFEX X:\Users\Theme\ResoucePack_LoadScreen_unpack\load2.jpg,!TIPS Edgeless LoadScreen Previewer,找不到load2.jpg，维持上一界面,5000,4,
+WAIT 5000
+
+
+TIPS Edgeless LoadScreen Previewer,预览结束,3000,4,
+LOGO
+WAIT 3000
+kill \拟真预览
+_END
+
+
+
+
+
+
+
+_SUB prev2,W280H150,均匀预览,,Icon\theme.ico,,
+
+
+//ENVI @Edit1.Val=?Time
+//CALC #Timer=%Time%*1000
+
+IFEX X:\Users\Theme\ResoucePack_LoadScreen_unpack\load0.jpg,TEAM LOGO X:\Users\Theme\ResoucePack_LoadScreen_unpack\load0.jpg|TIPS Edgeless LoadScreen Previewer,正在使用load0.jpg,3000,4,
+IFEX X:\Users\Theme\ResoucePack_LoadScreen_unpack\load0.jpg,!TIPS Edgeless LoadScreen Previewer,找不到load0.jpg，维持桌面状态,3000,4,
+WAIT 3000
+
+IFEX X:\Users\Theme\ResoucePack_LoadScreen_unpack\load1.jpg,TEAM LOGO X:\Users\Theme\ResoucePack_LoadScreen_unpack\load1.jpg|TIPS Edgeless LoadScreen Previewer,正在使用load1.jpg,3000,4,
+IFEX X:\Users\Theme\ResoucePack_LoadScreen_unpack\load1.jpg,!TIPS Edgeless LoadScreen Previewer,找不到load1.jpg，维持上一界面,3000,4,
+WAIT 3000
+
+IFEX X:\Users\Theme\ResoucePack_LoadScreen_unpack\load2.jpg,TEAM LOGO X:\Users\Theme\ResoucePack_LoadScreen_unpack\load2.jpg|TIPS Edgeless LoadScreen Previewer,正在使用load2.jpg,3000,4,
+IFEX X:\Users\Theme\ResoucePack_LoadScreen_unpack\load2.jpg,!TIPS Edgeless LoadScreen Previewer,找不到load2.jpg，维持上一界面,3000,4,
+WAIT 3000
+
+
+TIPS Edgeless LoadScreen Previewer,预览结束,3000,4,
+LOGO
+WAIT 3000
+kill \均匀预览
+
+
+_END

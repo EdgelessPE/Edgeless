@@ -1,0 +1,18 @@
+exec =cmd /c "takeown /f %Systemroot%\System32\imageres.dll"
+exec =cmd /c "icacls %Systemroot%\System32\imageres.dll /grant administrators:F"
+exec =cmd /c "takeown /f %Systemroot%\System32\imagesp1.dll"
+exec =cmd /c "icacls %Systemroot%\System32\imagesp1.dll /grant administrators:F"
+
+ifex X:\Users\Theme\Backup\imageres.dll,file %Systemroot%\System32\imagesp1.dll
+ifex X:\Users\Theme\Backup\imagesp1.dll,file %Systemroot%\System32\imageres.dll
+
+ifex X:\Users\Theme\Backup\imageres.dll,file X:\Users\Theme\Backup\imageres.dll=>%Systemroot%\System32\imageres.dll
+ifex X:\Users\Theme\Backup\imagesp1.dll,file X:\Users\Theme\Backup\imagesp1.dll=>%Systemroot%\System32\imagesp1.dll
+
+ifex X:\Users\Theme\Backup\imageres.dll,ENVI @@DeskTopFresh=clearicon;1
+
+kill explorer
+file X:\Users\Default\AppData\Local\Microsoft\Windows\Explorer\*.db
+
+TIPS Edgeless主题包管理器,系统图标还原完毕,3000,4,
+WAIT 4000
