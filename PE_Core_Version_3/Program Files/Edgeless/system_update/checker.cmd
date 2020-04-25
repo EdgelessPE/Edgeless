@@ -2,6 +2,7 @@
 echo %time% 检查更新程序-启动 >>X:\Users\Log.txt
 title 正在检查Edgeless更新
 color 3f
+cd /d %~dp0"
 set /p vnw=<"X:\Program Files\version.txt"
 echo %time% 检查更新程序-wim信息%vnw% >>X:\Users\Log.txt
 
