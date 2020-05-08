@@ -9,7 +9,8 @@ echo %time% 检查更新程序-wim信息%vnw% >>X:\Users\Log.txt
 
 if %vnw:~9,4%==Alpa goto alpha
 
-if not exist version_ol.txt "X:\Program Files\Edgeless\EasyDown\EasyDown.exe" -Down("http://s.edgeless.top/?token=version","version_ol.txt","X:\Program Files\Edgeless\system_update")
+if not exist version_ol.txt "X:\Program Files\Edgeless\EasyDown\aria2c.exe" -x16 -c -o "version_ol.txt" http://s.edgeless.top/?token=version
+::if not exist version_ol.txt "X:\Program Files\Edgeless\EasyDown\EasyDown.exe" -Down("http://s.edgeless.top/?token=version","version_ol.txt","X:\Program Files\Edgeless\system_update")
 if not exist version_ol.txt goto df
 set /p vol=<version_ol.txt
 echo %time% 检查更新程序-在线Beta信息%vol% >>X:\Users\Log.txt
@@ -34,7 +35,8 @@ pause
 title 正在检查OTA组件更新
 echo %time% 检查更新程序-下载burnername.txt >>X:\Users\Log.txt
 cls
-if not exist burnername.txt "X:\Program Files\Edgeless\EasyDown\EasyDown.exe" -Down("http://s.edgeless.top/?token=burnername","burnername.txt","X:\Program Files\Edgeless\system_update")
+if not exist burnername.txt "X:\Program Files\Edgeless\EasyDown\aria2c.exe" -x16 -c -o "burnername.txt" http://s.edgeless.top/?token=burnername
+::if not exist burnername.txt "X:\Program Files\Edgeless\EasyDown\EasyDown.exe" -Down("http://s.edgeless.top/?token=burnername","burnername.txt","X:\Program Files\Edgeless\system_update")
 if not exist burnername.txt call checknet.cmd
 set /p bname=<burnername.txt
     echo %time% 检查更新程序-burnername名称：%bname% >>X:\Users\Log.txt
@@ -133,11 +135,13 @@ exit
 
 
 :alpha
-if not exist "X:\Program Files\Edgeless\system_update\version_ola.txt" "X:\Program Files\Edgeless\EasyDown\EasyDown.exe" -Down("http://s.edgeless.top/?token=alpha","version_ola.txt","X:\Program Files\Edgeless\system_update")
+if not exist "X:\Program Files\Edgeless\system_update\version_ola.txt" "X:\Program Files\Edgeless\EasyDown\aria2c.exe" -x16 -c -o "version_ola.txt" http://s.edgeless.top/?token=alpha
+::if not exist "X:\Program Files\Edgeless\system_update\version_ola.txt" "X:\Program Files\Edgeless\EasyDown\EasyDown.exe" -Down("http://s.edgeless.top/?token=alpha","version_ola.txt","X:\Program Files\Edgeless\system_update")
 if not exist "X:\Program Files\Edgeless\system_update\version_ola.txt" goto df
 set /p voa=<"X:\Program Files\Edgeless\system_update\version_ola.txt"
 
-if not exist "X:\Program Files\Edgeless\system_update\version_ol.txt" "X:\Program Files\Edgeless\EasyDown\EasyDown.exe" -Down("http://s.edgeless.top/?token=version","version_ol.txt","X:\Program Files\Edgeless\system_update")
+if not exist "X:\Program Files\Edgeless\system_update\version_ol.txt" "X:\Program Files\Edgeless\EasyDown\aria2c.exe" -x16 -c -o "version_ol.txt" http://s.edgeless.top/?token=version
+::if not exist "X:\Program Files\Edgeless\system_update\version_ol.txt" "X:\Program Files\Edgeless\EasyDown\EasyDown.exe" -Down("http://s.edgeless.top/?token=version","version_ol.txt","X:\Program Files\Edgeless\system_update")
 if not exist "X:\Program Files\Edgeless\system_update\version_ol.txt" goto df
 set /p vol=<"X:\Program Files\Edgeless\system_update\version_ol.txt"
 

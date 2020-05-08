@@ -29,7 +29,7 @@ ITEM Button12,L210T440W145H40,      迅雷极速版,TEAM ENVI N=迅雷极速官方版|envi w
 
 LABE Label1,L45T510W320H15,更多插件请下载浏览器插件后访问down.edgeless.top获取
 
-LABE Label2,L40T530W320H15,点击获取系统镜像下载地址,call windown
+//LABE Label2,L40T530W320H15,点击获取系统镜像下载地址,call windown
 
 _END
 

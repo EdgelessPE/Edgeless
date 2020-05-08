@@ -1,4 +1,5 @@
 @echo off
+cd /d "%~dp0"
 set /p w=<Target.txt
 set /p n=<name.txt
 if exist php.txt set /p php=<php.txt
@@ -18,7 +19,8 @@ cls
 title Edgeless插件下载器-正在下载%n%
 color 3f
 if exist "X:\Program Files\Edgeless\plugin_downloader\tar.7zf" del /f /q "X:\Program Files\Edgeless\plugin_downloader\tar.7zf"
-"X:\Program Files\Edgeless\EasyDown\EasyDown.exe" -Down("http://s.edgeless.top/?token=%w%","tar.7zf","X:\Program Files\Edgeless\plugin_downloader")
+"X:\Program Files\Edgeless\EasyDown\aria2c.exe" -x16 -c -o "tar.7zf" http://s.edgeless.top/?token=%w%
+::"X:\Program Files\Edgeless\EasyDown\EasyDown.exe" -Down("http://s.edgeless.top/?token=%w%","tar.7zf","X:\Program Files\Edgeless\plugin_downloader")
 if not exist "X:\Program Files\Edgeless\plugin_downloader\tar.7zf" goto df
 echo %time% 插件包下载程序-下载成功 >>X:\Users\Log.txt
 start pecmd load over.wcs
@@ -81,7 +83,10 @@ set noRetry=t
 title Edgeless自定义下载器-正在下载%n%
 color 3f
 if exist "%savepath%%savename%" del /f /q "%savepath%%savename%"
-"X:\Program Files\Edgeless\EasyDown\EasyDown.exe" -Down("http://s.edgeless.top/%php%.php?token=%w%","%savename%","%savepath%")
+cd /d "%savepath%"
+"X:\Program Files\Edgeless\EasyDown\aria2c.exe" -x16 -c -o "%savename%" http://s.edgeless.top/?token=%w%
+cd /d "%~dp0"
+::"X:\Program Files\Edgeless\EasyDown\EasyDown.exe" -Down("http://s.edgeless.top/%php%.php?token=%w%","%savename%","%savepath%")
 if not exist "%savepath%%savename%" goto df
 echo %time% 自定义下载程序-下载成功 >>X:\Users\Log.txt
 explorer "%savepath%"

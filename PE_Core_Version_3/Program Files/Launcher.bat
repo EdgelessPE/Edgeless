@@ -157,8 +157,12 @@ if exist %Upath%:\Edgeless\Config\NoOutDateCheck echo %time% Launcher-响应禁用过
 if not exist %Upath%:\Edgeless\Config\NoOutDateCheck pecmd exec !"%ProgramFiles%\Edgeless\plugin_outdatedcheck\compare.cmd"
 
 ::调节分辨率
-if defined disp if "%disp%"=="DisableAutoSuit" goto endAutoSuit
+if defined disp (
+  if "%disp%"=="DisableAutoSuit" echo %time% Launcher-检查到DisableAutoSuit，跳过分辨率设置 >>X:\Users\Log.txt
+  if "%disp%"=="DisableAutoSuit" goto endAutoSuit
+)
 xcmd disp %disp%
+echo %time% Launcher-设置分辨率结束 >>X:\Users\Log.txt
 :endAutoSuit
 
 ::Edgeless文件夹整理
