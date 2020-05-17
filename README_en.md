@@ -6,7 +6,7 @@
   <br>
 </h1>
 
-<h4 align="center">Powerful and Graceful Preinstallation Environment<br>Also may be the first opensource PE Project in the eastern hemisphere</h4>
+<h4 align="center">Powerful and Graceful Preinstallation Environment<br>Also may be the first partly-opensource PE Project in the eastern hemisphere</h4>
 
 <p align="center">
   <a href="https://home.edgeless.top">Home Page</a> •
@@ -35,10 +35,10 @@ Otherwise，PECMD is necessary to your PE project，we recommend `Wimbuilder` se
 
 ## Get Release & Modules
 Visit [Home Page](https://home.edgeless.top) or [Download Station](https://down.edgeless.top)
->Releases whose last number of version unequal to zero are alpha releases（EX 3.1.2），they can be get inside our [QQ Group](https://home.edgeless.top/jump/qqg.html)
+>Releases whose last number of version unequal to zero are alpha releases（ex 3.1.2），they can be get inside our [QQ Group](https://home.edgeless.top/jump/qqg.html)
 
 ## Authorization For Using Plug-in Packages
-Though our codes are open sourced，but your access to using our download station requires our service，and it needs authorization，[click](https://wiki.edgeless.top/1398297) to learn more
+Though our codes are open sourced，but your project's access to using our download station requires our service，and it needs authorization，[click](https://wiki.edgeless.top/1398297) to learn more
 
 ## Other Types Of Authorization
 [Click](https://wiki.edgeless.top/1398297) to learn more

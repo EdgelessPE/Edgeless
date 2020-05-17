@@ -16,7 +16,7 @@
   <a href="https://home.edgeless.top/jump/qqg.html">QQ群</a>
 </p>
 
-### [👉English Version](https://github.com/Cnotech/Edgeless-Project/blob/master/README_en.md)
+### [👉English Version （May not the latest）](https://github.com/Cnotech/Edgeless-Project/blob/master/README_en.md)
 
 
 ## 许可证
