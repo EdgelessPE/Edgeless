@@ -18,7 +18,7 @@
 
 
 ## Licence
-The original codes of Edgeless Project are open source under [MPL2.0](https://www.mozilla.org/en-US/MPL/) Licence，except `setTheme.cmd`
+The original codes of Edgeless Project are open sourced under [Mozilla Public Licence 2.0](https://www.mozilla.org/en-US/MPL/)，except `setTheme.cmd`
 
 >According to MPL2.0，every project containing our original code should notes the source of codes（that can be the link of our github page [https://github.com/Cnotech/Edgeless-Project](https://github.com/Cnotech/Edgeless-Project) or homepage [https://home.edgeless.top/](https://home.edgeless.top/)），projects which violating this term will be treated as tortious project,Edgeless reserve the right to hold such project accountable
 
@@ -28,7 +28,7 @@ The original codes of Edgeless Project are open source under [MPL2.0](https://ww
 
 
 ## Quick Start
-Clone this repository，cover your own PE project with files in the `core` folder then begin to fix bugs
+Clone this repository，cover your own PE project folder with files in the `Core` folder then begin to fix bugs
 > Users who lack of the basic knowledge of Windows and WinPE are not recommended to do such work
 
 Otherwise，PECMD is necessary to your PE project，we recommend `Wimbuilder` series to build your PE core
