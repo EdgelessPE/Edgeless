@@ -28,6 +28,7 @@ if "%%a" == "UjyQii.7z" echo %%a >> X:\Users\outdated.txt
 if "%%a" == "优捷易UjyQii_4.5.1.0_Cno.7z" echo %%a >> X:\Users\outdated.txt
 if "%%a" == "傲梅分区助手技术员版_8.3.0.0_Cno.7z" echo %%a >> X:\Users\outdated.txt
 if "%%a" == "傲梅分区助手企业版_8.2.0.0_Cno.7z" echo %%a >> X:\Users\outdated.txt
+if "%%a" == "ept_Cno_null.7z" echo %%a >> X:\Users\outdated.txt
 
 
 
