@@ -2,12 +2,48 @@
 @echo off
 echo %time% ept-search-运行，第一参数：%1 >>X:\Users\Log.txt
 echo %time% ept-search-运行find，输出如下： >>X:\Users\Log.txt
-find /n /i "%1" X:\Users\ept\Index >>X:\Users\Log.txt
+if exist X:\Users\ept\Result.txt del /f /q X:\Users\ept\Result.txt
+find /n /i "%1" X:\Users\ept\Index >X:\Users\ept\Result.txt
+type X:\Users\ept\Result.txt >>X:\Users\Log.txt
 
+if "%2" neq "tryhit" goto skipHit
+echo %time% ept-search-尝试hit >>X:\Users\Log.txt
+if exist tmp.txt del /f /q tmp.txt
+findstr /n /i "^%1_" X:\Users\ept\Index >tmp.txt
+if not exist tmp.txt (
+    echo %time% ept-search-hit失败，因为tmp.txt不存在 >>X:\Users\Log.txt
+    goto skipHit
+)
+set /p readNull=<tmp.txt
+if not defined readNull (
+    echo %time% ept-search-hit失败，因为tmp.txt为空 >>X:\Users\Log.txt
+    goto skipHit
+)
+echo %time% ept-search-hit成功，命中的行： >>X:\Users\Log.txt
+type tmp.txt >>X:\Users\Log.txt
+
+for /f "usebackq delims==: tokens=1*" %%i in (tmp.txt) do (
+    echo %%i >hitNum.txt
+)
+set /p hitNum=<hitNum.txt
+if not defined hitNum (
+    echo %time% ept-search-hit失败，奇怪的问题：序号解析失败 >>X:\Users\Log.txt
+    goto skip
+)
+echo %time% ept-search-hitNum：%hitNum% >>X:\Users\Log.txt
+if exist hitNum.txt del /f /q hitNum.txt
+if exist tmp.txt del /f /q tmp.txt
+echo ept-search 自动命中序号为%hitNum%的插件
+call ept-install %hitNum% %3
+@echo off
+goto endSearch
+
+:skipHit
 echo ept-search 在本地索引中命中以下插件
 find /n /i "%1" X:\Users\ept\Index
 echo ----------
 echo.
-echo 使用   ept install [序号]    安装
+echo 使用   ept install [序号] / [软件名]    安装
+:endSearch
 echo %time% ept-search-任务完成 >>X:\Users\Log.txt
 echo on

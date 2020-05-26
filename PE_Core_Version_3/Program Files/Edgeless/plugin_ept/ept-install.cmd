@@ -17,7 +17,7 @@ for /f "usebackq delims==; tokens=*" %%i in (X:\Users\ept\Index) do (
 )
 if not exist tmp.txt (
     echo %time% ept-install-不存在tmp.txt，重定向至ept-search >>X:\Users\Log.txt
-    call ept-search %1
+    call ept-search %1 tryhit %2
     @echo off
     goto end
 )
@@ -37,10 +37,18 @@ set /p au=<au.txt
 set /p cate=<cate.txt
 echo %time% ept-install-name:%name%,ver:%ver%,au:%au%,cate:%cate% >>X:\Users\Log.txt
 if exist tmp.txt del /f /q tmp.txt >nul
-if exist name.txt del /f /q name.txt >nul
 if exist ver.txt del /f /q ver.txt >nul
 if exist au.txt del /f /q au.txt >nul
 if exist cate.txt del /f /q cate.txt >nul
+
+if /i "%2" == "-y" echo ept-install 将会执行自动安装
+if /i "%2" == "-a" echo ept-install 将会执行自动安装并保存
+
+if /i "%2" == "-y" echo Y >Y.txt
+if /i "%2" == "-a" echo Y >Y.txt
+if /i "%2" == "-a" echo A >A.txt
+if exist Y.txt echo %time% ept-install-Y.txt建立完成 >>X:\Users\Log.txt
+if exist A.txt echo %time% ept-install-A.txt建立完成 >>X:\Users\Log.txt
 
 echo ept-install 此插件将被安装：
 echo ----------
@@ -50,8 +58,9 @@ echo 打包者：%au%
 echo 分类：%cate%
 echo ----------
 echo.
-if /i "%2" neq "-y" CHOICE /C yn /M "您希望开始安装%name%吗?"
-if %errorlevel%==2 goto end
+if not exist Y.txt CHOICE /C yan /M "您希望开始安装%name%吗?（安装/安装并保存/取消）"
+if %errorlevel%==3 goto end
+if %errorlevel%==2 echo A >A.txt
 echo %time% ept-install-用户确认开始安装，开始下载 >>X:\Users\Log.txt
 echo ept-install 正在向服务器发送下载请求...
 ::pause
@@ -60,6 +69,13 @@ echo ept-install 正在安装插件包%name%...
 echo %time% ept-install-开始安装 >>X:\Users\Log.txt
 pecmd exec -min ="%ProgramFiles%\Edgeless\plugin_loader\load.cmd" "X:\Users\ept\pack.7zf"
 echo ept-install 已完成%name%的安装任务
+
+if exist A.txt (
+    echo "%name%_%ver%_%au%.7z" >savename.txt
+    call ept-save.cmd
+)
+
+
 :end
 echo %time% ept-install-任务完成 >>X:\Users\Log.txt
 if exist tmp.txt del /f /q tmp.txt >nul
@@ -67,4 +83,7 @@ if exist name.txt del /f /q name.txt >nul
 if exist ver.txt del /f /q ver.txt >nul
 if exist au.txt del /f /q au.txt >nul
 if exist cate.txt del /f /q cate.txt >nul
+if exist Y.txt del /f /q Y.txt >nul
+if exist A.txt del /f /q A.txt >nul
+if exist savename.txt del /f /q savename.txt >nul
 echo on

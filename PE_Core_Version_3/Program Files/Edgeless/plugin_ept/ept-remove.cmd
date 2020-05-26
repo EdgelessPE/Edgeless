@@ -16,6 +16,7 @@ if not exist tmp.txt (
     echo %time% ept-remove-不存在tmp.txt，跳转至search标签 >>X:\Users\Log.txt
     goto search
 )
+if /i "%2" == "-y" echo ept-remove 将会执行自动移除
 set /p tar=<tmp.txt
 echo %time% ept-remove-tar:%tar% >>X:\Users\Log.txt
 if exist tmp.txt del /f /q tmp.txt >nul
