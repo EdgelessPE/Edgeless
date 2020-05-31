@@ -18,4 +18,6 @@ if exist "%Spath%:\Edgeless\Resource\%w:~1,-2%" echo %time% ept-install-±£¥ÊµΩU≈
 if exist "%Spath%:\Edgeless\Resource\%w:~1,-2%" echo ept-install “—Ω´%w:~1,-2%±£¥Ê÷¡%Spath%≈Ã
 if not exist "%Spath%:\Edgeless\Resource\%w:~1,-2%" echo ept-install ±£¥Ê%w:~1,-2%÷¡%Spath%≈Ã ß∞‹
 :endSave
-if exist Spath.txt del /f /q Spath.txt
+if not exist X:\Users\ept\upgrade\UpgradeTime.txt (
+    if exist Spath.txt del /f /q Spath.txt
+)

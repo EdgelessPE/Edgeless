@@ -1,4 +1,5 @@
 @if not exist X:\Users\ept\Index call ept-update
+@if not exist X:\Users\ept\Index goto end
 @echo off
 echo %time% ept-install-运行，第一参数：%1，第二参数：%2 >>X:\Users\Log.txt
 if exist tmp.txt del /f /q tmp.txt >nul
@@ -62,12 +63,24 @@ if not exist Y.txt CHOICE /C yan /M "您希望开始安装%name%吗?（安装/安装并保存/取
 if %errorlevel%==3 goto end
 if %errorlevel%==2 echo A >A.txt
 echo %time% ept-install-用户确认开始安装，开始下载 >>X:\Users\Log.txt
-echo ept-install 正在向服务器发送下载请求...
-::pause
-"X:\Program Files\Edgeless\EasyDown\aria2c.exe" -x16 -c -d X:\Users\ept -o pack.7zf "http://s.edgeless.top/ept.php?name=%name%&version=%ver%&author=%au%&category=%cate:~0,-1%"
+echo ept-install 正在搜索本地仓库...
+for %%1 in (Z Y X W V U T S R Q P O N M L K J I H G F E D C ) do (
+    if exist %%1:\Edgeless\Resource\%name%_%ver%_%au%.7zf copy /y %%1:\Edgeless\Resource\%name%_%ver%_%au%.7zf X:\Users\ept\pack.7zf >nul
+    if exist %%1:\Edgeless\Resource\%name%_%ver%_%au%.7z copy /y %%1:\Edgeless\Resource\%name%_%ver%_%au%.7z X:\Users\ept\pack.7zf >nul
+    if exist X:\Users\ept\pack.7zf echo ept-install 已从本地仓库搬运目标插件包
+    if exist X:\Users\ept\pack.7zf echo %time% ept-install-从本地仓库搬运：%%1:\Edgeless\Resource\%name%_%ver%_%au%.7z（f） >>X:\Users\Log.txt
+)
+if not exist X:\Users\ept\pack.7zf echo ept-install 正在向服务器发送下载请求...
+if not exist X:\Users\ept\pack.7zf "X:\Program Files\Edgeless\EasyDown\aria2c.exe" -x16 -c -d X:\Users\ept -o pack.7zf "http://s.edgeless.top/ept.php?name=%name%&version=%ver%&author=%au%&category=%cate:~0,-1%"
+if not exist X:\Users\ept\pack.7zf (
+    echo ept-install 下载失败，请检查网络或联系作者
+    echo %time% ept-install-下载失败 >>X:\Users\Log.txt
+    goto end
+)
 echo ept-install 正在安装插件包%name%...
 echo %time% ept-install-开始安装 >>X:\Users\Log.txt
-pecmd exec -min ="%ProgramFiles%\Edgeless\plugin_loader\load.cmd" "X:\Users\ept\pack.7zf"
+echo %name%_%ver%_%au%>X:\Users\ept\Name.txt
+if not exist X:\Users\ept\upgrade\UpgradeTime.txt pecmd exec -min ="%ProgramFiles%\Edgeless\plugin_loader\load.cmd" "X:\Users\ept\pack.7zf"
 echo ept-install 已完成%name%的安装任务
 
 if exist A.txt (
@@ -75,8 +88,17 @@ if exist A.txt (
     call ept-save.cmd
 )
 
+set Spath=
+if exist X:\Users\ept\upgrade\UpgradeTime.txt set /p Spath=<Spath.txt
+if exist X:\Users\ept\upgrade\UpgradeTime.txt (
+    if not defined Spath echo %time% ept-install-错误：Spath未定义 >>X:\Users\Log.txt
+    if not defined Spath goto end
+    echo %time% ept-install-读取Edgeless盘符：%Spath%，加载目标路径："%Spath%:\Edgeless\Resource\%name%_%ver%_%au%.7z" >>X:\Users\Log.txt
+    pecmd exec -min "%ProgramFiles%\Edgeless\plugin_loader\load.cmd" "%Spath%:\Edgeless\Resource\%name%_%ver%_%au%.7z"
+)
 
 :end
+@echo off
 echo %time% ept-install-任务完成 >>X:\Users\Log.txt
 if exist tmp.txt del /f /q tmp.txt >nul
 if exist name.txt del /f /q name.txt >nul
@@ -86,4 +108,5 @@ if exist cate.txt del /f /q cate.txt >nul
 if exist Y.txt del /f /q Y.txt >nul
 if exist A.txt del /f /q A.txt >nul
 if exist savename.txt del /f /q savename.txt >nul
+if exist Spath.txt del /f /q Spath.txt
 echo on

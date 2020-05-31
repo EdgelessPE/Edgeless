@@ -1,0 +1,38 @@
+mdir "X:\Users\Plugins_info\Batch"
+mdir "X:\Users\Plugins_info\Dir"
+mdir "X:\Program Files\Edgeless\安装程序"
+file X:\Program Files\Edgeless\*.cmd->X:\Program Files\Edgeless\安装程序\
+file X:\Program Files\Edgeless\*.wcs->X:\Program Files\Edgeless\安装程序\
+read X:\Users\tarplug.txt,1,filePath
+    writ X:\Users\Log.txt,$+0,load.wcs-载入插件包：%filePath%
+    name fileName=%filePath%
+    ifex '%fileName%'='pack',set HideTip=TRUE
+    ifex '%fileName%'='pack',read X:\Users\ept\Name.txt,1,fileName
+    writ X:\Users\Plugins_info\List_Hotload.txt,$+0,%fileName%
+    mdir "%ProgramFiles%\Edgeless\plugin_release\%fileName%"
+    ifex '%HideTip%'='TRUE',!exec !"X:\Program Files\Edgeless\dynamic_creator\dynamic_tip.cmd" 4000 Edgeless插件包热加载程序 正在加载插件包"%fileName%"
+    writ X:\Users\Log.txt,$+0,load.wcs-正在解压%fileName%，来源：%filePath%
+    exec =!"%ProgramFiles%\7-Zip_x64\7z.exe" x "%filePath%"  -y -aos -o"%ProgramFiles%\Edgeless\plugin_release\%fileName%"
+    forx %ProgramFiles%\Edgeless\plugin_release\%fileName%\*,compPath,0,
+    {
+        name -ext compName=%compPath%
+        MSTR extName=-1,3,%compName%
+        ifex '%extName%'='cmd',writ X:\Users\Plugins_info\Batch\%fileName%.txt,$+0,%compName%
+        ifex '%extName%'='wcs',writ X:\Users\Plugins_info\Batch\%fileName%.txt,$+0,%compName%
+    }
+    forx @%ProgramFiles%\Edgeless\plugin_release\%fileName%\*,compDPath,0,
+    {
+        name -ext compDName=%compDPath%
+        writ X:\Users\Plugins_info\Dir\%fileName%.txt,$+0,%compDName%
+    }
+    writ X:\Users\Log.txt,$+0,load.wcs-%fileName%的外置批处理列表：
+    exec =!cmd.exe /c "type "X:\Users\Plugins_info\Batch\%fileName%.txt" >>X:\Users\Log.txt"
+    writ X:\Users\Log.txt,$+0,load.wcs-%fileName%的文件夹列表：
+    exec =!cmd.exe /c "type "X:\Users\Plugins_info\Dir\%fileName%.txt" >>X:\Users\Log.txt"
+
+    file %ProgramFiles%\Edgeless\plugin_release\%fileName%\*->%ProgramFiles%\Edgeless\
+
+writ X:\Users\Log.txt,$+0,========================================================
+forx %ProgramFiles%\Edgeless\*.cmd,cmdPath,0,team exec !%cmdPath%|writ X:\Users\Log.txt,$+0,load.wcs-正在运行：%cmdPath%|wait 50
+forx %ProgramFiles%\Edgeless\*.wcs,wcsPath,0,team exec !%wcsPath%|writ X:\Users\Log.txt,$+0,load.wcs-正在运行：%wcsPath%|wait 50
+ifex '%HideTip%'='TRUE',!exec !"X:\Program Files\Edgeless\dynamic_creator\dynamic_tip.cmd" 2500 Edgeless插件包热加载程序 "%fileName%"加载完成

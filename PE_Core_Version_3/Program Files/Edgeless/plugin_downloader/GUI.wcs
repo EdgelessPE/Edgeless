@@ -1,12 +1,6 @@
 CALL @windows1
 _SUB windows1,W400H590,插件下载器,,X:\Users\Icon\shortcut\down.ico,,
 
-FILE php.txt
-FILE name.txt
-FILE savename.txt
-FILE savepath.txt
-FILE target.txt
-
 GROU Group1,L15T15W360H80,浏览器
 GROU Group2,L15T95W360H80,远控
 GROU Group3,L15T175W360H80,通讯
@@ -14,39 +8,48 @@ GROU Group4,L15T255W360H80,安全
 GROU Group5,L15T335W360H80,工具
 GROU Group5,L15T415W360H80,下载
 
-ITEM Button1,L40T40W145H40,    Chrome,TEAM ENVI N=Chrome（Copur Pack）|envi w=Chrome|call @windows2,X:\Users\Icon\down\chrome.ico
-ITEM Button2,L210T40W145H40,    世界之窗,TEAM ENVI N=世界之窗浏览器7（柠檬味小可爱 Pack）|envi w=TheWorld|call @windows2,X:\Users\Icon\down\theworld.ico
-ITEM Button3,L40T120W145H40,     Anydesk,TEAM ENVI N=AnyDesk5.2.2|envi w=AnyDesk|call @windows2,X:\Users\Icon\down\anydesk.ico
-ITEM Button4,L210T120W145H40,     向日葵,TEAM ENVI N=向日葵远程控制（黄式 Pack）|envi w=XRK|call @windows2,X:\Users\Icon\down\XRK.ico
-ITEM Button5,L40T200W145H40,     微信,TEAM ENVI N=微信（Copur Pack）|envi w=Wechat|call @windows2,X:\Users\Icon\down\Wechat.ico
-ITEM Button6,L210T200W145H40,    QQ,TEAM ENVI N=QQ|envi w=QQ|call @windows2,X:\Users\Icon\down\qq.ico
-ITEM Button7,L40T280W145H40,     360急救箱,TEAM ENVI N=360急救箱（王洪峰 Pack）|envi w=360|call @windows2,X:\Users\Icon\down\sk.ico
-ITEM Button8,L210T280W145H40,     火绒安全,TEAM ENVI N=火绒安全|envi w=HR|call @windows2,X:\Users\Icon\down\huorong.ico
-ITEM Button9,L40T360W145H40,      傲梅分区助手,TEAM ENVI N=傲梅分区助手|envi w=PartAssist|call @windows2,X:\Users\Icon\down\part.ico
-ITEM Button10,L210T360W145H40,      驱动总裁,TEAM ENVI N=驱动总裁精简版（Caldari Pack）|envi w=DrvCEO|call @windows2,X:\Users\Icon\down\drv.ico
-ITEM Button11,L40T440W145H40,    IDM,TEAM ENVI N=IDM|envi w=IDM|call @windows2,X:\Users\Icon\down\IDM.ico
-ITEM Button12,L210T440W145H40,      迅雷极速版,TEAM ENVI N=迅雷极速官方版|envi w=ThunderOfficial|call @windows2,X:\Users\Icon\down\thunder.ico
+ITEM Button1,L40T40W145H40,    Chrome,TEAM envi w="Google Chrome"|call @windows2,X:\Users\Icon\down\chrome.ico
+ITEM Button2,L210T40W145H40,    世界之窗,TEAM envi w=世界之窗浏览器|call @windows2,X:\Users\Icon\down\theworld.ico
+ITEM Button3,L40T120W145H40,     Anydesk,TEAM envi w=Anydesk|call @windows2,X:\Users\Icon\down\anydesk.ico
+ITEM Button4,L210T120W145H40,     向日葵,TEAM envi w=向日葵远程控制|call @windows2,X:\Users\Icon\down\XRK.ico
+ITEM Button5,L40T200W145H40,     微信,TEAM envi w=Wechat|call @windows2,X:\Users\Icon\down\Wechat.ico
+ITEM Button6,L210T200W145H40,    QQ,TEAM envi w=QQ|call @windows2,X:\Users\Icon\down\qq.ico
+ITEM Button7,L40T280W145H40,     360急救箱,TEAM envi w=360急救箱|call @windows2,X:\Users\Icon\down\sk.ico
+ITEM Button8,L210T280W145H40,     火绒安全,TEAM envi w=火绒安全|call @windows2,X:\Users\Icon\down\huorong.ico
+ITEM Button9,L40T360W145H40,      傲梅分区助手,TEAM envi w=分区助手|call @windows2,X:\Users\Icon\down\part.ico
+ITEM Button10,L210T360W145H40,      驱动总裁,TEAM envi w=驱动总裁|call @windows2,X:\Users\Icon\down\drv.ico
+ITEM Button11,L40T440W145H40,    IDM,TEAM envi w=IDM|call @windows2,X:\Users\Icon\down\IDM.ico
+ITEM Button12,L210T440W145H40,      迅雷,TEAM envi w=迅雷|call @windows2,X:\Users\Icon\down\thunder.ico
 
-LABE Label1,L45T510W320H15,更多插件请下载浏览器插件后访问down.edgeless.top获取
+LABE Label1,L30T510W320H15,获取更多插件请使用插件包管理工具ept，点击查看教程,call @ept
 
 //LABE Label2,L40T530W320H15,点击获取系统镜像下载地址,call windown
 
 _END
 
+
+
+
 _SUB windows2,W300H120,确认下载,,Shell32.DLL#296,,
 
-ITEM Button1,L40T55W75H25,是,team exec =!cmd /c "echo %w%>target.txt"|exec =!cmd /c "echo %N%>name.txt"|exec downloader.cmd|kill \插件下载器|kill \确认下载,0
-ITEM Button2,L180T55W75H25,否,kill \确认下载,0
+LABE Label1,L20T20W400H25,是否安装 %w% 插件？
 
-LABE Label1,L20T20W260H25,是否下载 %N% 插件包？
+ITEM Button1,L20T55W75H25,安装,team exec cmd /c "ept install %w% -y"|kill \确认下载,0
+ITEM Button2,L110T55W75H25,安装并保存,team exec cmd /c "ept install %w% -a"|kill \确认下载,0
+ITEM Button2,L200T55W75H25,取消,kill \确认下载,0
+_END
+
+
+
+
+_SUB ept,W280H300,点击二维码打开cmd,,Shell32.DLL#296,,
+IMAG Image1,L1T1W270H270,X:\Program Files\Edgeless\plugin_downloader\qrcode.png,exec cmd.exe
 _END
 
 
 
 
 _SUB windown,W370H220,下载系统镜像,,X:\Users\Icon\shortcut\down.ico,,
-
-
 
 //IMAG Image1,L25T10W10H10,X:\Users\Icon\down\win.ico
 IMAG Image1,L28T10W20H20,X:\Users\Imdisk\Icon\down\windows.ico

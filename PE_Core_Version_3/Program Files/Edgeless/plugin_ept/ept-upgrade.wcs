@@ -1,0 +1,39 @@
+FORX !\Edgeless\version.txt,EL_Path,1,EXEC !cmd /c "echo pecmd-Find_EL_Path %EL_Path% >>X:\Users\Log.txt"
+IFEX %EL_Path%,!
+{
+    FORX !\Edgeless\version_Disk.txt,EL_Path,1,EXEC !cmd /c "echo pecmd-Find_EL_Path_Disk %EL_Path% >>X:\Users\Log.txt"
+}
+MSTR EL_Part=0,1,%EL_Path%
+FILE X:\Users\ept\upgrade\*.txt
+WRIT X:\Users\ept\upgrade\EL_Part.txt,$+0,%EL_Part%
+
+mdir X:\Users\ept\upgrade
+forx /s %EL_Part%:\Edgeless\Resource\*.7z,filePath,0,
+{
+    name fileName=%filePath%
+    file X:\Users\ept\upgrade\origin.txt
+    writ X:\Users\ept\upgrade\origin.txt,$+0,%fileName%
+    exec =!"X:\Program Files\Edgeless\plugin_ept\ept-upgrade-cutstr.cmd"
+    read X:\Users\ept\upgrade\name.txt,1,pName
+    read X:\Users\ept\upgrade\ver.txt,1,pVer
+    read X:\Users\ept\upgrade\au.txt,1,pAu
+
+    exec =!"X:\Program Files\Edgeless\plugin_ept\ept-getver.cmd" %pName%
+    ifex X:\Users\ept\upgrade\ver_ol.txt,
+    {
+        read X:\Users\ept\upgrade\ver_ol.txt,1,olVer
+        writ X:\Users\Log.txt,$+0,ept-upgrade-olVer:%olVer%£¬pVer£º%pVer%
+        ifex '%pVer%' = '%olVer%',!
+        {
+            writ X:\Users\ept\upgrade\UpgradeList_User.txt,$+0,%pName%  %pVer%¡·%olVer%
+            writ X:\Users\ept\upgrade\UpgradeList_Path.txt,$+0,%filePath%
+            writ X:\Users\ept\upgrade\UpgradeList_Name.txt,$+0,%pName%
+            writ X:\Users\ept\upgrade\UpgradeList_FullName.txt,$+0,%fileName%
+        }
+    }
+}
+file "X:\Users\ept\upgrade\au.txt"
+file "X:\Users\ept\upgrade\name.txt"
+file "X:\Users\ept\upgrade\ver.txt"
+file "X:\Users\ept\upgrade\ver_ol.txt"
+file "X:\Users\ept\upgrade\origin.txt"

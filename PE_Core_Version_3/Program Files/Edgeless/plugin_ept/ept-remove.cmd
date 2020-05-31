@@ -2,11 +2,16 @@
 echo %time% ept-remove-运行，第一参数：%1，第二参数：%2 >>X:\Users\Log.txt
 if not exist X:\Users\ept md X:\Users\ept
 if exist X:\Users\ept\List del /f /q X:\Users\ept\List >nul
-@copy /y X:\Users\Plugins_info\Preload\List.txt "X:\Users\ept\List" >nul
-if not exist "X:\Users\ept\List" echo %time% ept-remove-List拷贝失败！ >>X:\Users\Log.txt
+if exist X:\Users\Plugins_info\List_Preload.txt type X:\Users\Plugins_info\List_Preload.txt >X:\Users\ept\List
+if exist X:\Users\Plugins_info\List_Hotload.txt type X:\Users\Plugins_info\List_Hotload.txt >>X:\Users\ept\List
+if not exist "X:\Users\ept\List" (
+    echo %time% ept-remove-List已空 >>X:\Users\Log.txt
+    echo ept-remove 插件已被全部移除
+    goto end
+)
 setlocal enabledelayedexpansion
 set /a row=0
-echo ept-remove 正在读取插件状态信息...
+echo ept-remove 正在读取插件信息...
 echo %time% ept-remove-开始解析List >>X:\Users\Log.txt
 for /f "usebackq delims==; tokens=*" %%i in (X:\Users\ept\List) do (
     set /a row+=1
@@ -22,14 +27,19 @@ echo %time% ept-remove-tar:%tar% >>X:\Users\Log.txt
 if exist tmp.txt del /f /q tmp.txt >nul
 if /i "%2" neq "-y" CHOICE /C yn /M "您是否确认移除%tar:~0,-1%?"
 if %errorlevel%==2 goto end
-echo %time% ept-remove-用户确认开始移除，开始检查插件快捷方式 >>X:\Users\Log.txt
+echo %time% ept-remove-用户确认开始移除，开始移动外置批处理到安装程序目录 >>X:\Users\Log.txt
 
+if not exist "%ProgramFiles%\Edgeless\安装程序" md "%ProgramFiles%\Edgeless\安装程序"
+if exist "X:\Program Files\Edgeless\*.cmd" copy /y "X:\Program Files\Edgeless\*.cmd" "X:\Program Files\Edgeless\安装程序\" >nul
+if exist "X:\Program Files\Edgeless\*.wcs" copy /y "X:\Program Files\Edgeless\*.wcs" "X:\Program Files\Edgeless\安装程序\" >nul
+
+echo %time% ept-remove-开始追溯插件快捷方式 >>X:\Users\Log.txt
 echo ept-remove 正在追溯%tar:~0,-1%创建的快捷方式...
 if exist run.wcs del /f /q run.wcs
 if exist run.cmd del /f /q run.cmd
 if exist "X:\Program Files\Edgeless\run.wcs" del /f /q "X:\Program Files\Edgeless\run.wcs"
 if exist "X:\Program Files\Edgeless\run.cmd" del /f /q "X:\Program Files\Edgeless\run.cmd"
-for /f "usebackq delims==; tokens=*" %%i in ("X:\Users\Plugins_info\Preload\Batch\%tar:~0,-1%.txt") do (
+for /f "usebackq delims==; tokens=*" %%i in ("X:\Users\Plugins_info\Batch\%tar:~0,-1%.txt") do (
     findstr /i "X:\Users\Default\Desktop" "X:\Program Files\Edgeless\安装程序\%%i">run.wcs
 )
 echo %time% ept-remove-用于创建快捷方式的语句集合： >>X:\Users\Log.txt
@@ -39,6 +49,7 @@ if not exist run.wcs (
     echo %time% ept-remove-插件未创建桌面快捷方式：不存在run.wcs >>X:\Users\Log.txt
     goto skipRLink
 )
+set nullCheck=
 set /p nullCheck=<run.wcs
 if not defined nullCheck (
     echo ept-remove 插件未创建桌面快捷方式
@@ -58,6 +69,8 @@ del /f /q "X:\Program Files\Edgeless\run.cmd"
 if not exist "X:\Users\Default\Desktop\*.lnk" (
     echo ept-remove 当前插件的桌面快捷方式已失效，追溯失败
     echo %time% ept-remove-快捷方式已失效，追溯失败：桌面无.lnk文件 >>X:\Users\Log.txt
+    move X:\Users\Default\Desktop\tmp\*.lnk X:\Users\Default\Desktop >nul
+    pecmd file X:\Users\Default\Desktop\tmp
     goto skipRLink
 )
 dir /b "X:\Users\Default\Desktop\*.lnk">link.txt
@@ -80,9 +93,42 @@ del /f /q link.txt
 
 :skipRLink
 echo ept-remove 正在移除%tar:~0,-1%...
-for /f "usebackq delims==; tokens=*" %%i in ("X:\Users\Plugins_info\Preload\Dir\%tar:~0,-1%.txt") do (
+if not exist "X:\Users\Plugins_info\Dir\%tar:~0,-1%.txt" (
+    echo %time% ept-remove-未发现文件夹 >>X:\Users\Log.txt
+    goto skipRD
+)
+for /f "usebackq delims==; tokens=*" %%i in ("X:\Users\Plugins_info\Dir\%tar:~0,-1%.txt") do (
     pecmd file "X:\Program Files\Edgeless\%%i"
 )
+
+:skipRD
+echo ept-remove 正在更新插件信息...
+echo %time% ept-remove-开始更新插件信息，List_Preload.txt内容如下： >>X:\Users\Log.txt
+if exist X:\Users\Plugins_info\List_Preload.txt type X:\Users\Plugins_info\List_Preload.txt >>X:\Users\Log.txt
+echo %time% ept-remove-List_Hotload.txt内容如下： >>X:\Users\Log.txt
+if exist X:\Users\Plugins_info\List_Hotload.txt type X:\Users\Plugins_info\List_Hotload.txt >>X:\Users\Log.txt
+
+if not exist X:\Users\Plugins_info\List_Preload.txt goto skipUpdatePreloadList
+if exist X:\Users\Plugins_info\List_Preload_backup.txt del /f /q X:\Users\Plugins_info\List_Preload_backup.txt
+ren X:\Users\Plugins_info\List_Preload.txt List_Preload_backup.txt
+for /f "usebackq delims==; tokens=*" %%i in ("X:\Users\Plugins_info\List_Preload_backup.txt") do (
+    if "%%i" neq "%tar:~0,-1%" echo %%i>>X:\Users\Plugins_info\List_Preload.txt
+)
+:skipUpdatePreloadList
+
+if not exist X:\Users\Plugins_info\List_Hotload.txt goto skipUpdateHotloadList
+if exist X:\Users\Plugins_info\List_Hotload_backup.txt del /f /q X:\Users\Plugins_info\List_Hotload_backup.txt
+ren X:\Users\Plugins_info\List_Hotload.txt List_Hotload_backup.txt
+for /f "usebackq delims==; tokens=*" %%i in ("X:\Users\Plugins_info\List_Hotload_backup.txt") do (
+    if "%%i" neq "%tar:~0,-1%" echo %%i>>X:\Users\Plugins_info\List_Hotload.txt
+)
+:skipUpdateHotloadList
+
+echo %time% ept-remove-更新插件信息完成，List_Preload.txt内容如下： >>X:\Users\Log.txt
+if exist X:\Users\Plugins_info\List_Preload.txt type X:\Users\Plugins_info\List_Preload.txt >>X:\Users\Log.txt
+echo %time% ept-remove-List_Hotload.txt内容如下： >>X:\Users\Log.txt
+if exist X:\Users\Plugins_info\List_Hotload.txt type X:\Users\Plugins_info\List_Hotload.txt >>X:\Users\Log.txt
+
 echo ept-remove 移除完成
 echo %time% ept-remove-移除完成 >>X:\Users\Log.txt
 goto end
