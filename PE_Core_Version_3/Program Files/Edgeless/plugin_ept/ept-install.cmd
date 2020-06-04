@@ -8,6 +8,9 @@ if exist ver.txt del /f /q ver.txt >nul
 if exist au.txt del /f /q au.txt >nul
 if exist cate.txt del /f /q cate.txt >nul
 if exist X:\Users\ept\pack.7zf del /f /q X:\Users\ept\pack.7zf >nul
+if exist X:\Users\ept\DownloadFail.txt del /f /q X:\Users\ept\DownloadFail.txt >nul
+if exist X:\Users\ept\SaveFail.txt del /f /q X:\Users\ept\SaveFail.txt >nul
+
 setlocal enabledelayedexpansion
 set /a row=0
 echo ept-install 正在读取本地插件索引...
@@ -62,7 +65,7 @@ echo.
 if not exist Y.txt CHOICE /C yan /M "您希望开始安装%name%吗?（安装/安装并保存/取消）"
 if %errorlevel%==3 goto end
 if %errorlevel%==2 echo A >A.txt
-echo %time% ept-install-用户确认开始安装，开始下载 >>X:\Users\Log.txt
+echo %time% ept-install-用户确认开始安装，选择：%errorlevel%，开始下载 >>X:\Users\Log.txt
 echo ept-install 正在搜索本地仓库...
 for %%1 in (Z Y X W V U T S R Q P O N M L K J I H G F E D C ) do (
     if exist %%1:\Edgeless\Resource\%name%_%ver%_%au%.7zf copy /y %%1:\Edgeless\Resource\%name%_%ver%_%au%.7zf X:\Users\ept\pack.7zf >nul
@@ -75,6 +78,7 @@ if not exist X:\Users\ept\pack.7zf "X:\Program Files\Edgeless\EasyDown\aria2c.ex
 if not exist X:\Users\ept\pack.7zf (
     echo ept-install 下载失败，请检查网络或联系作者
     echo %time% ept-install-下载失败 >>X:\Users\Log.txt
+    echo Fail >X:\Users\ept\DownloadFail.txt
     goto end
 )
 echo ept-install 正在安装插件包%name%...
@@ -93,6 +97,8 @@ if exist X:\Users\ept\upgrade\UpgradeTime.txt set /p Spath=<Spath.txt
 if exist X:\Users\ept\upgrade\UpgradeTime.txt (
     if not defined Spath echo %time% ept-install-错误：Spath未定义 >>X:\Users\Log.txt
     if not defined Spath goto end
+    if exist X:\Users\ept\upgrade\DontLoad.txt echo %time% ept-install-遇到标签：不需要加载 >>X:\Users\Log.txt
+    if exist X:\Users\ept\upgrade\DontLoad.txt goto end
     echo %time% ept-install-读取Edgeless盘符：%Spath%，加载目标路径："%Spath%:\Edgeless\Resource\%name%_%ver%_%au%.7z" >>X:\Users\Log.txt
     pecmd exec -min "%ProgramFiles%\Edgeless\plugin_loader\load.cmd" "%Spath%:\Edgeless\Resource\%name%_%ver%_%au%.7z"
 )

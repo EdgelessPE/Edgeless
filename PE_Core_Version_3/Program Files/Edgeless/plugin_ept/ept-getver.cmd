@@ -1,10 +1,17 @@
 @if not exist X:\Users\ept\Index call ept-update >nul
 @if not exist X:\Users\ept\Index goto endGetVer
 @echo off
-echo %time% ept-getver-运行 >>X:\Users\Log.txt
+echo %time% ept-getver-运行，第一参数：%1，开始对第一参数去引号 >>X:\Users\Log.txt
+echo %1>bare_getver.txt
+set /p key=<bare_getver.txt
+echo %key:"=%>bare_getver.txt
+set /p key=<bare_getver.txt
+del /f /q bare_getver.txt
+echo %time% ept-getver-第一参数去引号后的结果：%key% >>X:\Users\Log.txt
+
 if exist tmp.txt del /f /q tmp.txt
 if exist X:\Users\ept\upgrade\ver_ol.txt del /f /q X:\Users\ept\upgrade\ver_ol.txt
-findstr /i "^%1_" X:\Users\ept\Index >tmp.txt
+findstr /i "^%key%_" X:\Users\ept\Index >tmp.txt
 set checkNull=
 set /p checkNull=<tmp.txt
 if not defined checkNull (
