@@ -127,6 +127,7 @@ if not exist %Upath%:\sources\boot.wim (
 echo %time% Disk_Installer-开始复制boot.wim >>X:\Users\Log.txt
 title 正在复制Edgeless核心
 cls
+echo 正在复制Edgeless核心...
 copy /y %Upath%:\sources\boot.wim %a%:\Recovery\WindowsRE\Winre.wim
     if not exist %a%:\Recovery\WindowsRE\Winre.wim (
     echo %time% Disk_Installer-复制boot.wim失败 >>X:\Users\Log.txt

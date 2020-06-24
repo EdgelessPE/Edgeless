@@ -40,7 +40,7 @@ if exist run.cmd del /f /q run.cmd
 if exist "X:\Program Files\Edgeless\run.wcs" del /f /q "X:\Program Files\Edgeless\run.wcs"
 if exist "X:\Program Files\Edgeless\run.cmd" del /f /q "X:\Program Files\Edgeless\run.cmd"
 for /f "usebackq delims==; tokens=*" %%i in ("X:\Users\Plugins_info\Batch\%tar:~0,-1%.txt") do (
-    findstr /i "X:\Users\Default\Desktop" "X:\Program Files\Edgeless\安装程序\%%i">run.wcs
+    findstr /i "Desktop" "X:\Program Files\Edgeless\安装程序\%%i">run.wcs
 )
 echo %time% ept-remove-用于创建快捷方式的语句集合： >>X:\Users\Log.txt
 type run.wcs >>X:\Users\Log.txt
