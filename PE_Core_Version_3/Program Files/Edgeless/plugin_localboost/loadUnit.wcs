@@ -1,0 +1,61 @@
+//读取目标路径并解析
+read "X:\Users\LocalBoost\unit.txt",1,TargetPath
+name -ext TargetName=%TargetPath%
+writ X:\Users\Log.txt,$+0,LocalBoost-loadUnit 启动，读取路径参数：%TargetPath%，解析名称为：%TargetName%
+
+//建立工作目录
+mdir  X:\Users\Plugins_info\Batch
+mdir  X:\Users\Plugins_info\Dir
+mdir  X:\Users\Plugins_info\File
+mdir %TargetPath%\_Batch
+
+//将插件记录到LocalBoost加载列表
+writ X:\Users\Plugins_info\List_LocalBoost.txt,$+0,%TargetName%
+
+//生成外置批处理列表，并将其放入临时目录
+forx %TargetPath%\*,filePath,0,
+{
+    name -ext fileName=%filePath%
+    mstr extName=-1,3,%fileName%
+    ifex '%extName%'='cmd',
+    {
+        writ X:\Users\Plugins_info\Batch\%TargetName%.txt,$+0,%fileName%
+        file %filePath%->%TargetPath%\_Batch
+    }
+    ifex '%extName%'='wcs',
+    {
+        writ X:\Users\Plugins_info\Batch\%TargetName%.txt,$+0,%fileName%
+        file %filePath%->%TargetPath%\_Batch
+    }
+}
+
+//生成暴露的依赖文件列表，为其创建链接（复制）
+forx %TargetPath%\*,filePath,0,
+{
+    name -ext fileName=%filePath%
+    writ X:\Users\Plugins_info\File\%TargetName%.txt,$+0,%fileName%
+    //flnk X:\Program Files\Edgeless\%fileName%,%filePath%,1
+    file %filePath%=>X:\Program Files\Edgeless
+}
+
+//生成依赖目录列表，为其创建链接
+forx @%TargetPath%\*,dirPath,0,
+{
+    name -ext dirName=%dirPath%
+    writ X:\Users\Plugins_info\Dir\%TargetName%.txt,$+0,%dirName%
+    flnk -j X:\Program Files\Edgeless\%dirName%,%dirPath%
+}
+
+//复制外置批处理并运行
+forx %TargetPath%\_Batch\*,filePath,0,
+{
+    name -ext fileName=%filePath%
+    file %filePath%=>X:\Program Files\Edgeless
+    writ X:\Users\Log.txt,$+0,LocalBoost-loadUnit 正在运行：%fileName%
+    exec !X:\Program Files\Edgeless\%fileName%
+}
+
+
+//移除临时目录
+file %TargetPath%\_Batch\*->%TargetPath%\
+file %TargetPath%\_Batch
