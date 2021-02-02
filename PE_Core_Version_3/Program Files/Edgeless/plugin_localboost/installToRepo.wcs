@@ -1,0 +1,18 @@
+//读取目标盘符和插件包路径，解析插件包名称
+read "X:\Users\LocalBoost\repoPart.txt",1,TargetPart
+read "X:\Users\LocalBoost\pluginPath.txt",1,PluginPath
+name PluginName=%PluginPath%
+writ X:\Users\Log.txt,$+0,LocalBoost-installToRepo 启动，读取盘符参数：%TargetPart%，插件包路径：%PluginPath%，解析为：%PluginName%
+
+//创建仓库目录
+mdir "%TargetPart%:\Edgeless\BoostRepo\%PluginName%"
+
+//解压插件包至repo同名文件夹
+exec =!"%ProgramFiles%\7-Zip_x64\7z.exe" x %PluginPath%  -y -aos -o"%TargetPart%:\Edgeless\BoostRepo\%PluginName%"
+
+//运行loadUnit
+writ X:\Users\LocalBoost\unit.txt,$0,%TargetPart%:\Edgeless\BoostRepo\%PluginName%
+exec =X:\Program Files\Edgeless\plugin_localboost\loadUnit.wcs
+
+writ X:\Users\Log.txt,$+0,LocalBoost-installToRepo 退出
+exec !"X:\Program Files\Edgeless\dynamic_creator\dynamic_tip.cmd" 3000 "%PluginName%"安装成功 LocalBoost仓库盘符：%TargetPart%

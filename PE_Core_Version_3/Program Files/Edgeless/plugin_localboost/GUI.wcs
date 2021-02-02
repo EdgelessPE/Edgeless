@@ -1,16 +1,35 @@
-CALL @windows1
-_SUB windows1,W480H330,è¿‡æœŸæ’ä»¶æç¤º,,Shell32.DLL#244,,
+file X:\Users\LocalBoost\repoPart.txt
+call @windows1
 
-read outdated.txt,*,info
-LABE Label1,L30T20W450H50,Edgelessæ£€æµ‹åˆ°æ‚¨çš„Uç›˜ä¸­å­˜åœ¨ä»¥ä¸‹æ’ä»¶,,,18
-MEMO Memo1,L100T70W280H88,,X:\Users\outdated.txt,0x8
-LABE Label2,L110T170W280H25,è¿™äº›æ’ä»¶å·²è¢«å®˜æ–¹åˆ—ä¸ºè¿‡æœŸçš„æ’ä»¶ï¼,,,12
-LABE Label3,L25T225W450H25,åœ¨æœ¬æ¬¡å¯åŠ¨ä¸­ï¼Œè¿™äº›æ’ä»¶å·²è¢«åŠ è½½å¹¶å¯ç”¨ï¼Œä½†æ˜¯æˆ‘ä»¬å»ºè®®æ‚¨å°½å¿«å¤„ç†å®ƒä»¬ï¼,,,10
+_SUB windows1,W300H120,°²×°²å¼şµ½¼ÓËÙ²Ö¿â,,X:\Users\Icon\type\plugin.ico,,
 
-ifex X:\Users\nes_reload,LABE Label4,L15T200W450H25,å…¶ä¸­Nes_Inport.7zçš„å­˜æ”¾ä½ç½®é”™è¯¯ï¼Œå®ƒåº”å½“æ›¿æ¢Edgelessæ–‡ä»¶å¤¹å†…çš„åŒåæ–‡ä»¶,,0x0000FF,9
-file X:\Users\nes_reload
-ITEM Button1,L45T250W105H30,å…¨éƒ¨ç¦ç”¨,TEAM kill \è¿‡æœŸæ’ä»¶æç¤º|exec !rn.cmd
-ITEM Button2,L185T250W105H30,æ‰‹åŠ¨ç®¡ç†,team exec !openexp.cmd|file X:\Users\outdated.txt|file X:\Users\7zlist.txt
-ITEM Button3,L325T250W105H30,æš‚æ—¶å¿½ç•¥,team kill \è¿‡æœŸæ’ä»¶æç¤º|file X:\Users\outdated.txt|file X:\Users\7zlist.txt
+LABE Label1,L30T20W240H40,ÄúÏ£Íû½«ÄÄ¸ö·ÖÇø×÷ÎªLocalBoostµÄÄ¬ÈÏ²Ö¿âËùÔÚ·ÖÇø£¿
 
+ITEM Button1,L115T55W70H25,Ñ¡Ôñ,call browse
+_END
+
+_SUB browse
+BROW Tag,*,,Ñ¡Ôñ°²×°ÅÌ·û
+MSTR disk=0,1,%Tag%
+IFEX %disk%:\<2048,call retry1
+IFEX |%disk%==X,call retry2
+FIND $%Tag%=,!
+{
+    IFEX [%disk%:\>=2048 & |%disk%<>X],call set
+}
+_END
+
+_SUB retry1,W300H120,´ÅÅÌ¿Õ¼ä²»×ã,,X:\Users\Icon\shortcut\update.ico,,
+LABE Label1,L30T20W300H20,Ä¿±ê´ÅÅÌ %disk% ¿ÉÓÃ¿Õ¼äĞ¡ÓÚ2GB£¬ÇëÖØĞÂÑ¡Ôñ
+ITEM Button1,L110T55W75H25,È·¶¨,kill \´ÅÅÌ¿Õ¼ä²»×ã
+_END
+
+_SUB retry2,W300H120,·ÖÇø²»¿ÉÓÃ,,X:\Users\Icon\shortcut\update.ico,,
+LABE Label1,L50T20W300H20,°²×°Î»ÖÃ²»ÄÜÔÚX·ÖÇøÄÚ£¬ÇëÖØĞÂÑ¡Ôñ
+ITEM Button1,L110T55W75H25,È·¶¨,kill \·ÖÇø²»¿ÉÓÃ
+_END
+
+_SUB set
+writ X:\Users\LocalBoost\repoPart.txt,$0,%disk%
+kill \°²×°²å¼şµ½¼ÓËÙ²Ö¿â
 _END

@@ -1,0 +1,1 @@
+for %%1 in (Z Y X W V U T S R Q P O N M L K J I H G F E D C B A) do if exist %%1:\Edgeless\version.txt echo %%1>X:\Users\Upath_forxhelper.txt

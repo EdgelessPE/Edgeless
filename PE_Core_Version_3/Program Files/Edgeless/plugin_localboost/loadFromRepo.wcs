@@ -1,0 +1,12 @@
+//读取目标盘符
+read "X:\Users\LocalBoost\repoPart.txt",1,TargetPart
+writ X:\Users\Log.txt,$+0,LocalBoost-loadFromRepo 启动，读取盘符参数：%TargetPart%
+
+//遍历文件夹，执行loadUnit
+forx @%TargetPart%:\Edgeless\BoostRepo\*,dirPath,0,
+{
+    writ X:\Users\LocalBoost\unit.txt,$0,%dirPath%
+    exec =X:\Program Files\Edgeless\plugin_localboost\loadUnit.wcs
+}
+
+writ X:\Users\Log.txt,$+0,LocalBoost-loadFromRepo 退出
