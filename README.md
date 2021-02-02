@@ -22,7 +22,7 @@
 ## 许可证
 Edgeless的**自编代码**基于[MPL2.0](https://www.mozilla.org/en-US/MPL/)许可证开源，除了`setTheme.cmd`
 
->根据MPL2.0许可证，所有使用了Edgeless自编代码的项目均需要注明代码来源（可以是本仓库链接[https://github.com/Cnotech/Edgeless-Project](https://github.com/Cnotech/Edgeless-Project)或是Edgeless主页链接[https://home.edgeless.top/](https://home.edgeless.top/)，不遵守此条款的项目会被视为侵权项目，Edgeless保留对侵权项目的盗用追究权利
+>根据MPL2.0许可证，所有使用了Edgeless自编代码的项目均需要注明版权信息（可以是本仓库链接[https://github.com/Cnotech/Edgeless-Project](https://github.com/Cnotech/Edgeless-Project)或是Edgeless主页链接[https://home.edgeless.top/](https://home.edgeless.top/)，不遵守此条款的项目会被视为侵权项目，Edgeless保留对侵权项目的盗用追究权利
 
 > 显然本仓库内包含的文件不全是Edgeless的自编代码
 

@@ -20,7 +20,7 @@
 ## Licence
 The original codes of Edgeless Project are open sourced under [Mozilla Public Licence 2.0](https://www.mozilla.org/en-US/MPL/)，except `setTheme.cmd`
 
->According to MPL2.0，every project containing our original code should notes the source of codes（that can be the link of our github page [https://github.com/Cnotech/Edgeless-Project](https://github.com/Cnotech/Edgeless-Project) or homepage [https://home.edgeless.top/](https://home.edgeless.top/)），projects which violating this term will be treated as tortious project,Edgeless reserve the right to hold such project accountable
+>According to MPL2.0，every project containing our original code should notes the copyright of codes（that can be the link of our github page [https://github.com/Cnotech/Edgeless-Project](https://github.com/Cnotech/Edgeless-Project) or homepage [https://home.edgeless.top/](https://home.edgeless.top/)），projects which violating this term will be treated as tortious project,Edgeless reserve the right to hold such project accountable
 
 > Obviously，not all of the files in the repository are our original codes
 
