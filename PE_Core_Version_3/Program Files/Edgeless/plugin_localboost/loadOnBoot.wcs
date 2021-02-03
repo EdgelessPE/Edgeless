@@ -1,0 +1,56 @@
+//读取启动盘盘符
+read "X:\Users\LocalBoost\elPart.txt",1,EdgelessPart
+writ X:\Users\Log.txt,$+0,LocalBoost-loadOnBoot 启动，启动盘盘符：%EdgelessPart%
+
+//扫描BoostRepo，并写入默认BoostRepo配置文件
+forx @\Edgeless\BoostRepo,TargetPath,1,writ X:\Users\Log.txt,$+0,LocalBoost-loadOnBoot 扫描到仓库路径：%TargetPath%
+mstr TargetPart=0,1,%TargetPath%
+ifex %TargetPart%:\,writ X:\Users\LocalBoost\repoPart.txt,$0,%TargetPart%
+
+//如果没有已知的BoostRepo仓库，调用GUI让用户选择一个
+ifex [%EdgelessPart%:\Edgeless\Resource\*.7zl & ! %TargetPart%:\],
+{
+    writ X:\Users\Log.txt,$+0,LocalBoost-loadOnBoot 等待用户指定仓库盘符
+    //禁用LoadScreen
+    mdir X:\Users\DisableLoadScreen
+    logo
+
+    exec ="X:\Program Files\Edgeless\plugin_localboost\GUI.wcs"
+    read X:\Users\LocalBoost\repoPart.txt,1,TargetPart
+}
+
+ifex %TargetPart%:\,
+{
+    writ X:\Users\Log.txt,$+0,LocalBoost-loadOnBoot 开始对%TargetPart%上的BoostRepo执行操作
+    mdir %TargetPart%:\Edgeless\BoostRepo
+    //遍历仓库文件夹，执行loadUnit加载
+    forx @%TargetPart%:\Edgeless\BoostRepo\*,dirPath,0,
+    {
+        //调用loadUnit执行加载
+        writ X:\Users\LocalBoost\unit.txt,$0,%dirPath%
+        exec =X:\Program Files\Edgeless\plugin_localboost\loadUnit.wcs
+
+        //将启动盘中对应的7z、7zl插件包标记为7zb
+        name -ext fileName=%dirPath%
+        file %EdgelessPart%:\Edgeless\Resource\%fileName%.7z>>%fileName%.7zb
+        file %EdgelessPart%:\Edgeless\Resource\%fileName%.7zl>>%fileName%.7zb
+    }
+
+    exec !"X:\Program Files\Edgeless\dynamic_creator\dynamic_tip.cmd" 3000 已加载LocalBoost仓库中的插件 LocalBoost仓库盘符：%TargetPart%
+
+    //安装所有剩余的7zl
+    forx %EdgelessPart%:\Edgeless\Resource\*,filePath,0,
+    {
+        name -ext fileName=%filePath%
+        mstr extName=-1,3,%fileName%
+        ifex '%extName%'='7zl',
+        {
+            writ X:\Users\LocalBoost\pluginPath.txt,$0,"%filePath%"
+            exec =X:\Program Files\Edgeless\plugin_localboost\installToRepo.wcs
+        }
+    }
+}
+
+//恢复7zb为7zl，退出
+EXEC !cmd /c "ren %EL_Part%:\Edgeless\Resource\*.7zb *.7zl"
+writ X:\Users\Log.txt,$+0,LocalBoost-loadOnBoot 退出

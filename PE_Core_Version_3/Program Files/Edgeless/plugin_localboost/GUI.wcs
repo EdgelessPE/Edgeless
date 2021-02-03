@@ -13,9 +13,13 @@ BROW Tag,*,,选择安装盘符
 MSTR disk=0,1,%Tag%
 IFEX %disk%:\<2048,call retry1
 IFEX |%disk%==X,call retry2
+IFEX %disk%:\Edgeless\version.txt,call retry3
 FIND $%Tag%=,!
 {
-    IFEX [%disk%:\>=2048 & |%disk%<>X],call set
+    IFEX %disk%:\Edgeless\version.txt,!
+    {
+        IFEX [%disk%:\>=2048 & |%disk%<>X],call set
+    }
 }
 _END
 
@@ -26,6 +30,11 @@ _END
 
 _SUB retry2,W300H120,分区不可用,,X:\Users\Icon\shortcut\update.ico,,
 LABE Label1,L50T20W300H20,安装位置不能在X分区内，请重新选择
+ITEM Button1,L110T55W75H25,确定,kill \分区不可用
+_END
+
+_SUB retry3,W300H120,分区不可用,,X:\Users\Icon\shortcut\update.ico,,
+LABE Label1,L50T20W300H20,安装位置不能在启动盘内，请重新选择
 ITEM Button1,L110T55W75H25,确定,kill \分区不可用
 _END
 
