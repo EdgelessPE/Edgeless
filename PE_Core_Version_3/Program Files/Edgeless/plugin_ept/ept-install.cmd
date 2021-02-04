@@ -2,12 +2,16 @@
 @if not exist X:\Users\ept\Index goto end
 @echo off
 echo %time% ept-install-运行，第一参数：%1，第二参数：%2 >>X:\Users\Log.txt
+if exist X:\Users\ept\pack.7zf (
+    echo ept-install 另一个ept-install正在运行，请等待其运行结束
+    echo %time% ept-install-另一个ept-install正在运行，退出 >>X:\Users\Log.txt
+    goto forceend
+)
 if exist tmp.txt del /f /q tmp.txt >nul
 if exist name.txt del /f /q name.txt >nul
 if exist ver.txt del /f /q ver.txt >nul
 if exist au.txt del /f /q au.txt >nul
 if exist cate.txt del /f /q cate.txt >nul
-if exist X:\Users\ept\pack.7zf del /f /q X:\Users\ept\pack.7zf >nul
 if exist X:\Users\ept\DownloadFail.txt del /f /q X:\Users\ept\DownloadFail.txt >nul
 if exist X:\Users\ept\SaveFail.txt del /f /q X:\Users\ept\SaveFail.txt >nul
 
@@ -148,4 +152,7 @@ if exist A.txt del /f /q A.txt >nul
 if exist L.txt del /f /q L.txt >nul
 if exist savename.txt del /f /q savename.txt >nul
 if exist Spath.txt del /f /q Spath.txt
+if exist X:\Users\ept\pack.7zf del /f /q X:\Users\ept\pack.7zf >nul
+
+:forceend
 echo on

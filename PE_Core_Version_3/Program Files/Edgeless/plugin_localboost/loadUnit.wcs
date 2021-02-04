@@ -56,12 +56,12 @@ forx %TargetPath%\_Batch\*,filePath,0,
     exec !X:\Program Files\Edgeless\%fileName%
 }
 
+//移除临时目录
+file %TargetPath%\_Batch\*->%TargetPath%\
+file %TargetPath%\_Batch
+
 //创建LocalBoost启动标记
 forx @%TargetPath%\*,dirPath,0,
 {
     writ %dirPath%\_LocalBoost.txt,$0,%TargetPath%\%dirName%
 }
-
-//移除临时目录
-file %TargetPath%\_Batch\*->%TargetPath%\
-file %TargetPath%\_Batch

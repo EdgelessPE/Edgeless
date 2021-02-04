@@ -4,6 +4,7 @@ if not exist X:\Users\ept md X:\Users\ept
 if exist X:\Users\ept\List del /f /q X:\Users\ept\List >nul
 if exist X:\Users\Plugins_info\List_Preload.txt type X:\Users\Plugins_info\List_Preload.txt >X:\Users\ept\List
 if exist X:\Users\Plugins_info\List_Hotload.txt type X:\Users\Plugins_info\List_Hotload.txt >>X:\Users\ept\List
+if exist X:\Users\Plugins_info\List_LocalBoost.txt type X:\Users\Plugins_info\List_LocalBoost.txt >>X:\Users\ept\List
 if not exist "X:\Users\ept\List" (
     echo %time% ept-remove-List已空 >>X:\Users\Log.txt
     echo ept-remove 插件已被全部移除
@@ -45,14 +46,14 @@ for /f "usebackq delims==; tokens=*" %%i in ("X:\Users\Plugins_info\Batch\%tar:~
 echo %time% ept-remove-用于创建快捷方式的语句集合： >>X:\Users\Log.txt
 type run.wcs >>X:\Users\Log.txt
 if not exist run.wcs (
-    echo ept-remove 插件未创建桌面快捷方式
+    echo ept-remove 插件未创建桌面快捷方式或使用二进制文件创建
     echo %time% ept-remove-插件未创建桌面快捷方式：不存在run.wcs >>X:\Users\Log.txt
     goto skipRLink
 )
 set nullCheck=
 set /p nullCheck=<run.wcs
 if not defined nullCheck (
-    echo ept-remove 插件未创建桌面快捷方式
+    echo ept-remove 插件未创建桌面快捷方式或使用二进制文件创建
     echo %time% ept-remove-插件未创建桌面快捷方式：run.wcs为空 >>X:\Users\Log.txt
     goto skipRLink
 )
@@ -100,13 +101,24 @@ if not exist "X:\Users\Plugins_info\Dir\%tar:~0,-1%.txt" (
 for /f "usebackq delims==; tokens=*" %%i in ("X:\Users\Plugins_info\Dir\%tar:~0,-1%.txt") do (
     pecmd file "X:\Program Files\Edgeless\%%i"
 )
-
 :skipRD
+
+if not exist "X:\Users\Plugins_info\File\%tar:~0,-1%.txt" (
+    echo %time% ept-remove-未发现文件 >>X:\Users\Log.txt
+    goto skipRF
+)
+for /f "usebackq delims==; tokens=*" %%i in ("X:\Users\Plugins_info\File\%tar:~0,-1%.txt") do (
+    pecmd file "X:\Program Files\Edgeless\%%i"
+)
+:skipRF
+
 echo ept-remove 正在更新插件信息...
 echo %time% ept-remove-开始更新插件信息，List_Preload.txt内容如下： >>X:\Users\Log.txt
 if exist X:\Users\Plugins_info\List_Preload.txt type X:\Users\Plugins_info\List_Preload.txt >>X:\Users\Log.txt
 echo %time% ept-remove-List_Hotload.txt内容如下： >>X:\Users\Log.txt
 if exist X:\Users\Plugins_info\List_Hotload.txt type X:\Users\Plugins_info\List_Hotload.txt >>X:\Users\Log.txt
+echo %time% ept-remove-List_LocalBoost.txt内容如下： >>X:\Users\Log.txt
+if exist X:\Users\Plugins_info\List_LocalBoost.txt type X:\Users\Plugins_info\List_LocalBoost.txt >>X:\Users\Log.txt
 
 if not exist X:\Users\Plugins_info\List_Preload.txt goto skipUpdatePreloadList
 if exist X:\Users\Plugins_info\List_Preload_backup.txt del /f /q X:\Users\Plugins_info\List_Preload_backup.txt
@@ -124,10 +136,29 @@ for /f "usebackq delims==; tokens=*" %%i in ("X:\Users\Plugins_info\List_Hotload
 )
 :skipUpdateHotloadList
 
+if not exist X:\Users\Plugins_info\List_LocalBoost.txt goto skipUpdateLocalBoostList
+if exist X:\Users\Plugins_info\List_LocalBoost_backup.txt del /f /q X:\Users\Plugins_info\List_LocalBoost_backup.txt
+ren X:\Users\Plugins_info\List_LocalBoost.txt List_LocalBoost_backup.txt
+if exist X:\Users\LocalBoost\removeFromRepo rd X:\Users\LocalBoost\removeFromRepo
+for /f "usebackq delims==; tokens=*" %%i in ("X:\Users\Plugins_info\List_LocalBoost_backup.txt") do (
+    if "%%i" neq "%tar:~0,-1%" echo %%i>>X:\Users\Plugins_info\List_LocalBoost.txt
+    if "%%i" == "%tar:~0,-1%" md X:\Users\LocalBoost\removeFromRepo
+)
+:skipUpdateLocalBoostList
+
 echo %time% ept-remove-更新插件信息完成，List_Preload.txt内容如下： >>X:\Users\Log.txt
 if exist X:\Users\Plugins_info\List_Preload.txt type X:\Users\Plugins_info\List_Preload.txt >>X:\Users\Log.txt
 echo %time% ept-remove-List_Hotload.txt内容如下： >>X:\Users\Log.txt
 if exist X:\Users\Plugins_info\List_Hotload.txt type X:\Users\Plugins_info\List_Hotload.txt >>X:\Users\Log.txt
+echo %time% ept-remove-List_LocalBoost.txt内容如下： >>X:\Users\Log.txt
+if exist X:\Users\Plugins_info\List_LocalBoost.txt type X:\Users\Plugins_info\List_LocalBoost.txt >>X:\Users\Log.txt
+
+if exist X:\Users\LocalBoost\removeFromRepo set /p repoPart=<"X:\Users\LocalBoost\repoPart.txt"
+if exist X:\Users\LocalBoost\removeFromRepo (
+    echo %time% ept-remove-插件来源于LocalBoost，准备清理LocalBoost仓库，位于：%repoPart% >>X:\Users\Log.txt
+    echo ept-remove 从%repoPart%盘上的LocalBoost仓库中删除%tar:~0,-1%...
+    pecmd file "%repoPart%:\Edgeless\BoostRepo\%tar:~0,-1%"
+)
 
 echo ept-remove 移除完成
 echo %time% ept-remove-移除完成 >>X:\Users\Log.txt
@@ -143,5 +174,6 @@ echo ----------
 echo 使用   ept remove [序号]    移除
 
 :end
+if exist X:\Users\LocalBoost\removeFromRepo rd X:\Users\LocalBoost\removeFromRepo
 echo %time% ept-remove-任务完成 >>X:\Users\Log.txt
 echo on

@@ -4,8 +4,8 @@ echo.
 echo Edgeless插件包管理工具
 echo.
 echo 语法：
-echo    ept install 或 ept-install 或 ept-get install [序号] {-y /-a}/[软件名] {-y /-a}/[关键词]
-echo        安装指定插件或搜索插件，参数-y表自动安装，参数-a表自动安装并保存
+echo    ept install 或 ept-install 或 ept-get install [序号] {-y /-a /-l}/[软件名] {-y /-a /-l}/[关键词]
+echo        安装指定插件或搜索插件，参数-y表自动安装，参数-a表自动安装并保存，参数-l表通过LocalBoost安装并保存
 echo.
 echo    ept search 或 ept-search 或 ept-cache search [关键词]
 echo        搜索指定插件并列出序号
