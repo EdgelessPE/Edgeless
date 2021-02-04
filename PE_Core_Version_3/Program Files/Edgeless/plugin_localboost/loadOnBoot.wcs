@@ -51,6 +51,9 @@ ifex %TargetPart%:\,
     }
 }
 
-//恢复7zb为7zl，退出
-EXEC !cmd /c "ren %EL_Part%:\Edgeless\Resource\*.7zb *.7zl"
+//恢复7zb为7zl，清理外置批处理，退出
+exec !cmd /c "ren %EL_Part%:\Edgeless\Resource\*.7zb *.7zl"
+mdir "X:\Program Files\Edgeless\安装程序"
+file X:\Program Files\Edgeless\*.cmd->X:\Program Files\Edgeless\安装程序\
+file X:\Program Files\Edgeless\*.wcs->X:\Program Files\Edgeless\安装程序\
 writ X:\Users\Log.txt,$+0,LocalBoost-loadOnBoot 退出

@@ -27,6 +27,7 @@ forx %TargetPath%\*,filePath,0,
         writ X:\Users\Plugins_info\Batch\%TargetName%.txt,$+0,%fileName%
         file %filePath%->%TargetPath%\_Batch
     }
+    ifex '%fileName%'='_LocalBoost.txt',file %filePath%
 }
 
 //生成暴露的依赖文件列表，为其创建链接（复制）
@@ -55,6 +56,11 @@ forx %TargetPath%\_Batch\*,filePath,0,
     exec !X:\Program Files\Edgeless\%fileName%
 }
 
+//创建LocalBoost启动标记
+forx @%TargetPath%\*,dirPath,0,
+{
+    writ %dirPath%\_LocalBoost.txt,$0,%TargetPath%\%dirName%
+}
 
 //移除临时目录
 file %TargetPath%\_Batch\*->%TargetPath%\

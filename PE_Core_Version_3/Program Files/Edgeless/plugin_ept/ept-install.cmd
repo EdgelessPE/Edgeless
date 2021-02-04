@@ -47,12 +47,17 @@ if exist cate.txt del /f /q cate.txt >nul
 
 if /i "%2" == "-y" echo ept-install 将会执行自动安装
 if /i "%2" == "-a" echo ept-install 将会执行自动安装并保存
+if /i "%2" == "-l" echo ept-install 将会执行LocalBoost安装并保存
 
 if /i "%2" == "-y" echo Y >Y.txt
 if /i "%2" == "-a" echo Y >Y.txt
 if /i "%2" == "-a" echo A >A.txt
+if /i "%2" == "-l" echo Y >Y.txt
+if /i "%2" == "-l" echo L >L.txt
+
 if exist Y.txt echo %time% ept-install-Y.txt建立完成 >>X:\Users\Log.txt
 if exist A.txt echo %time% ept-install-A.txt建立完成 >>X:\Users\Log.txt
+if exist L.txt echo %time% ept-install-L.txt建立完成 >>X:\Users\Log.txt
 
 echo ept-install 此插件将被安装：
 echo ----------
@@ -62,9 +67,10 @@ echo 打包者：%au%
 echo 分类：%cate%
 echo ----------
 echo.
-if not exist Y.txt CHOICE /C yan /M "您希望开始安装%name%吗?（安装/安装并保存/取消）"
-if %errorlevel%==3 goto end
+if not exist Y.txt CHOICE /C yaln /M "您希望开始安装%name%吗?（安装/安装并保存/LocalBoost安装并保存/取消）"
+if %errorlevel%==4 goto end
 if %errorlevel%==2 echo A >A.txt
+if %errorlevel%==3 echo L >L.txt
 echo %time% ept-install-用户确认开始安装，选择：%errorlevel%，开始下载 >>X:\Users\Log.txt
 echo ept-install 正在搜索本地仓库...
 for %%1 in (Z Y X W V U T S R Q P O N M L K J I H G F E D C ) do (
@@ -84,7 +90,10 @@ if not exist X:\Users\ept\pack.7zf (
 echo ept-install 正在安装插件包%name%...
 echo %time% ept-install-开始安装 >>X:\Users\Log.txt
 echo %name%_%ver%_%au%>X:\Users\ept\Name.txt
-if not exist X:\Users\ept\upgrade\UpgradeTime.txt pecmd exec -min ="%ProgramFiles%\Edgeless\plugin_loader\load.cmd" "X:\Users\ept\pack.7zf"
+if not exist X:\Users\ept\upgrade\UpgradeTime.txt (
+    if not exist L.txt pecmd exec -min ="%ProgramFiles%\Edgeless\plugin_loader\load.cmd" "X:\Users\ept\pack.7zf"
+    if exist L.txt goto pLocalBoost
+)
 echo ept-install 已完成%name%的安装任务
 
 if exist A.txt (
@@ -102,6 +111,29 @@ if exist X:\Users\ept\upgrade\UpgradeTime.txt (
     echo %time% ept-install-读取Edgeless盘符：%Spath%，加载目标路径："%Spath%:\Edgeless\Resource\%name%_%ver%_%au%.7z" >>X:\Users\Log.txt
     pecmd exec -min "%ProgramFiles%\Edgeless\plugin_loader\load.cmd" "%Spath%:\Edgeless\Resource\%name%_%ver%_%au%.7z"
 )
+goto end
+
+
+:pLocalBoost
+echo ept-install 正在通过LocalBoost安装...
+echo %time% ept-install-跳转到LocalBoost处理分支，执行保存 >>X:\Users\Log.txt
+echo "%name%_%ver%_%au%.7zl" >savename.txt
+call ept-save.cmd
+
+echo %time% ept-install-调用loadUnit安装 >>X:\Users\Log.txt
+ren "X:\Users\ept\pack.7zf" "%name%_%ver%_%au%.7z"
+if not exist X:\Users\LocalBoost md X:\Users\LocalBoost
+echo "X:\Users\ept\%name%_%ver%_%au%.7z">"X:\Users\LocalBoost\pluginPath.txt"
+if not exist "X:\Users\LocalBoost\repoPart.txt" pecmd exec ="X:\Program Files\Edgeless\plugin_localboost\GUI.wcs"
+if not exist "X:\Users\LocalBoost\repoPart.txt" (
+    echo %time% ept-install-用户关闭选择盘符对话框，退出 >>X:\Users\Log.txt
+    goto end
+)
+pecmd exec ="X:\Program Files\Edgeless\plugin_localboost\installToRepo.wcs"
+del /f /q "X:\Users\ept\%name%_%ver%_%au%.7z"
+echo ept-install-任务完成
+goto end
+
 
 :end
 @echo off
@@ -113,6 +145,7 @@ if exist au.txt del /f /q au.txt >nul
 if exist cate.txt del /f /q cate.txt >nul
 if exist Y.txt del /f /q Y.txt >nul
 if exist A.txt del /f /q A.txt >nul
+if exist L.txt del /f /q L.txt >nul
 if exist savename.txt del /f /q savename.txt >nul
 if exist Spath.txt del /f /q Spath.txt
 echo on
