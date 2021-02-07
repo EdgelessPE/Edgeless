@@ -48,14 +48,6 @@ forx %TargetPath%\*,filePath,0,
     file %filePath%=>X:\Program Files\Edgeless
 }
 
-//生成依赖目录列表，为其创建链接
-forx @%TargetPath%\*,dirPath,0,
-{
-    name -ext dirName=%dirPath%
-    writ X:\Users\Plugins_info\Dir\%TargetName%.txt,$+0,%dirName%
-    flnk -j X:\Program Files\Edgeless\%dirName%,%dirPath%
-}
-
 //复制外置批处理并运行
 forx %TargetPath%\_Batch\*,filePath,0,
 {
@@ -69,6 +61,14 @@ forx %TargetPath%\_Batch\*,filePath,0,
 file %TargetPath%\_BatchProtect\*->%TargetPath%\
 file %TargetPath%\_Batch
 file %TargetPath%\_BatchProtect
+
+//生成依赖目录列表，为其创建链接
+forx @%TargetPath%\*,dirPath,0,
+{
+    name -ext dirName=%dirPath%
+    writ X:\Users\Plugins_info\Dir\%TargetName%.txt,$+0,%dirName%
+    flnk -j X:\Program Files\Edgeless\%dirName%,%dirPath%
+}
 
 //创建LocalBoost启动标记
 forx @%TargetPath%\*,dirPath,0,
