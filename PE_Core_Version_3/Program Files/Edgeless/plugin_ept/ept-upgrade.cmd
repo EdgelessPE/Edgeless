@@ -5,16 +5,32 @@ if exist Spath.txt del /f /q Spath.txt
 if exist Y_u.txt del /f /q Y_u.txt
 if exist X:\Users\ept\upgrade\DontLoad.txt del /f /q X:\Users\ept\upgrade\DontLoad.txt
 if exist X:\Users\ept\upgrade\Retry.txt del /f /q X:\Users\ept\upgrade\Retry.txt
+
+::É¨ÃèEdgelessÆô¶¯ÅÌ£¬µ«ÊÇ²»È¡³öÆäÖµ£¬½ö×ö¼ì²é
 for %%1 in (Z Y X W V U T S R Q P O N M L K J I H G F E D C ) do if exist %%1:\Edgeless\version_Disk.txt echo %%1>Spath.txt
 for %%1 in (Z Y X W V U T S R Q P O N M L K J I H G F E D C ) do if exist %%1:\Edgeless\version.txt echo %%1>Spath.txt
 if not exist Spath.txt (
     echo ept-upgrade Çë²åÈëÓĞĞ§µÄEdgelessÆô¶¯ÅÌ
     echo %time% ept-upgrade-Ã»ÓĞ¼ì²âµ½Æô¶¯ÅÌ >>X:\Users\Log.txt
-    goto endUpgrade
+    goto exitUpgrade
 )
 if exist Spath.txt del /f /q Spath.txt
+
+::ÔËĞĞ°æ±¾ºÅ±È¶Ô½Å±¾
 echo ept-upgrade ÕıÔÚ¶Ô±È²å¼şĞÅÏ¢...
 pecmd load "X:\Program Files\Edgeless\plugin_ept\ept-upgrade.wcs"
+
+::Óëwcs½Å±¾Í¬²½EdgelessÅÌ·û
+set /p EL_Part=<X:\Users\ept\upgrade\EL_Part.txt
+if not defined EL_Part set /p EL_Part=<Spath.txt
+if exist Spath.txt del /f /q Spath.txt
+
+if not defined EL_Part (
+    echo ept-upgrade Ææ¹ÖµÄ´íÎó£ºEdgelessÅÌ·ûÎ´¶¨Òå
+    echo %time% ept-upgrade-Ææ¹ÖµÄ´íÎó£ºEdgelessÅÌ·ûÎ´¶¨Òå >>X:\Users\Log.txt
+    goto endUpgrade
+)
+
 if not exist "X:\Users\ept\upgrade\UpgradeList_User.txt" (
     if not exist X:\Users\ept\upgrade\UpgradeList_Invaild.txt echo ept-upgrade Ã»ÓĞ¿ÉÒÔÉı¼¶µÄ²å¼ş
     echo %time% ept-upgrade-Ã»ÓĞ¿ÉÒÔÉı¼¶µÄ²å¼ş >>X:\Users\Log.txt
@@ -51,16 +67,6 @@ echo %time% ept-upgrade-ÓÃ»§È·ÈÏ½øĞĞ¸üĞÂ£¬Ñ¡Ôñ£º%errorlevel% >>X:\Users\Log.txt
 if exist X:\Users\ept\upgrade\DontLoad.txt echo %time% ept-upgrade-DontLoad.txt½¨Á¢Íê³É >>X:\Users\Log.txt
 
 echo Start >X:\Users\ept\upgrade\UpgradeTime.txt
-
-set /p EL_Part=<X:\Users\ept\upgrade\EL_Part.txt
-if not defined EL_Part set /p EL_Part=<Spath.txt
-if exist Spath.txt del /f /q Spath.txt
-
-if not defined EL_Part (
-    echo ept-upgrade Ææ¹ÖµÄ´íÎó£ºEdgelessÅÌ·ûÎ´¶¨Òå
-    echo %time% ept-upgrade-Ææ¹ÖµÄ´íÎó£ºEdgelessÅÌ·ûÎ´¶¨Òå >>X:\Users\Log.txt
-    goto endUpgrade
-)
 
 echo ept-upgrade ÕıÔÚ×ªÒÆ¹ıÆÚµÄ²å¼ş°ü...
 if not exist %EL_Part%:\Edgeless\Resource\¹ıÆÚ²å¼ş°ü md %EL_Part%:\Edgeless\Resource\¹ıÆÚ²å¼ş°ü
@@ -138,4 +144,38 @@ if not exist X:\Users\ept\upgrade\UpgradeList_Invaild.txt echo ept-upgrade ¸üĞÂÍ
 
 :endUpgrade
 if exist X:\Users\ept\upgrade\Retry.txt del /f /q X:\Users\ept\upgrade\Retry.txt
+if not exist "X:\Users\ept\upgrade\RenameList_FullName.txt" (
+    echo ept-upgrade Ã»ÓĞ7zlĞèÒª´¦Àí£¬ÍË³ö >>X:\Users\Log.txt
+    goto exitUpgrade
+)
+
+::»Ö¸´Ã»ÓĞ±»Éı¼¶µÄ7zlÎÄ¼ş
+echo ept-upgrade »¹Ô­Î´Éı¼¶µÄ7zl£¬Ãûµ¥ÈçÏÂ£º >>X:\Users\Log.txt
+type X:\Users\ept\upgrade\RenameList_FullName.txt >>X:\Users\Log.txt
+for /f "usebackq delims==; tokens=*" %%i in ("X:\Users\ept\upgrade\RenameList_FullName.txt") do (
+    echo ept-upgrade ¼ì²é£º"%EL_Part%:\Edgeless\Resource\%%i.7z" >>X:\Users\Log.txt
+    if exist "%EL_Part%:\Edgeless\Resource\%%i.7z" echo ept-upgrade »¹Ô­Î´Éı¼¶µÄ7zl£º%%i >>X:\Users\Log.txt
+    if exist "%EL_Part%:\Edgeless\Resource\%%i.7z" ren "%EL_Part%:\Edgeless\Resource\%%i.7z" "%%i.7zl"
+)
+
+::Æ¥Åä±»Éı¼¶µÄ7zlÎÄ¼ş£¬Éú³ÉÃûµ¥
+dir /b "%EL_Part%:\Edgeless\Resource\*.7z">X:\Users\ept\upgrade\7zList.txt
+echo ept-upgrade ×¼±¸»¹Ô­Éı¼¶µÄ7zl£¬Éú³É7zÃûµ¥£º >>X:\Users\Log.txt
+type X:\Users\ept\upgrade\7zList.txt >>X:\Users\Log.txt
+for /f "usebackq delims==; tokens=*" %%i in ("X:\Users\ept\upgrade\RenameList_Name.txt") do (
+    echo %%i>X:\Users\ept\upgrade\matchName.txt
+    call ept-upgrade-getmatch.cmd
+)
+echo ept-upgrade Æ¥Åäµ½µÄ7zlÎÄ¼şÃûµ¥£º >>X:\Users\Log.txt
+type X:\Users\ept\upgrade\7zlMatch.txt >>X:\Users\Log.txt
+
+::¶ÔÃûµ¥ÉÏµÄËùÓĞ²å¼şÖØÃüÃûÍØÕ¹ÃûÎª7zl
+for /f "usebackq delims==; tokens=*" %%i in ("X:\Users\ept\upgrade\7zlMatch.txt") do (
+    echo ept-upgrade ¼ì²é£º"%EL_Part%:\Edgeless\Resource\%%i" >>X:\Users\Log.txt
+    if exist "%EL_Part%:\Edgeless\Resource\%%i" echo ept-upgrade »¹Ô­Éı¼¶µÄ7zl£º%%i >>X:\Users\Log.txt
+    if exist "%EL_Part%:\Edgeless\Resource\%%i" ren "%EL_Part%:\Edgeless\Resource\%%i" "%%il"
+)
+
+:exitUpgrade
+echo ept-upgrade ³ÌĞòÍË³ö >>X:\Users\Log.txt
 @echo on
