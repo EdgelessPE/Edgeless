@@ -1,36 +1,72 @@
+//初始化插件数量计数器，并自增
+ifex X:\Users\Plugins_info\Counter_Hotload.txt,!writ X:\Users\Plugins_info\Counter_Hotload.txt,$0,0
+read X:\Users\Plugins_info\Counter_Hotload.txt,1,counter
+calc #counter=%counter%+1
+writ X:\Users\Plugins_info\Counter_Hotload.txt,$0,%counter%
+
+//准备工作
 mdir "X:\Users\Plugins_info\Batch"
 mdir "X:\Users\Plugins_info\Dir"
 mdir "X:\Program Files\Edgeless\安装程序"
 file X:\Program Files\Edgeless\*.cmd->X:\Program Files\Edgeless\安装程序\
 file X:\Program Files\Edgeless\*.wcs->X:\Program Files\Edgeless\安装程序\
-read X:\Users\tarplug.txt,1,filePath
-    writ X:\Users\Log.txt,$+0,load.wcs-载入插件包：%filePath%
-    name fileName=%filePath%
-    ifex '%fileName%'='pack',set HideTip=TRUE
-    ifex '%fileName%'='pack',read X:\Users\ept\Name.txt,1,fileName
-    writ X:\Users\Plugins_info\List_Hotload.txt,$+0,%fileName%
-    mdir "%ProgramFiles%\Edgeless\plugin_release\%fileName%"
-    ifex '%HideTip%'='TRUE',!exec !"X:\Program Files\Edgeless\dynamic_creator\dynamic_tip.cmd" 4000 Edgeless插件包热加载程序 正在加载插件包"%fileName%"
-    writ X:\Users\Log.txt,$+0,load.wcs-正在解压%fileName%，来源：%filePath%
-    exec =!"%ProgramFiles%\7-Zip_x64\7z.exe" x "%filePath%"  -y -aos -o"%ProgramFiles%\Edgeless\plugin_release\%fileName%"
-    forx %ProgramFiles%\Edgeless\plugin_release\%fileName%\*,compPath,0,
-    {
-        name -ext compName=%compPath%
-        MSTR extName=-1,3,%compName%
-        ifex '%extName%'='cmd',writ X:\Users\Plugins_info\Batch\%fileName%.txt,$+0,%compName%
-        ifex '%extName%'='wcs',writ X:\Users\Plugins_info\Batch\%fileName%.txt,$+0,%compName%
-    }
-    forx @%ProgramFiles%\Edgeless\plugin_release\%fileName%\*,compDPath,0,
-    {
-        name -ext compDName=%compDPath%
-        writ X:\Users\Plugins_info\Dir\%fileName%.txt,$+0,%compDName%
-    }
-    writ X:\Users\Log.txt,$+0,load.wcs-%fileName%的外置批处理列表：
-    exec =!cmd.exe /c "type "X:\Users\Plugins_info\Batch\%fileName%.txt" >>X:\Users\Log.txt"
-    writ X:\Users\Log.txt,$+0,load.wcs-%fileName%的文件夹列表：
-    exec =!cmd.exe /c "type "X:\Users\Plugins_info\Dir\%fileName%.txt" >>X:\Users\Log.txt"
 
-    file %ProgramFiles%\Edgeless\plugin_release\%fileName%\*->%ProgramFiles%\Edgeless\
+//读取被载入的插件包信息
+read X:\Users\tarplug.txt,1,filePath
+writ X:\Users\Log.txt,$+0,load.wcs-载入插件包：%filePath%
+
+//判断是否是ept任务，如果是则读取真实名称并不显示加载成功提示
+name fileName=%filePath%
+ifex '%fileName%'='pack',
+{
+    set HideTip=TRUE
+    read X:\Users\ept\Name.txt,1,fileName
+}
+
+//记录到热加载列表
+writ X:\Users\Plugins_info\List_Hotload.txt,$+0,%fileName%
+
+//准备工作
+mdir "%ProgramFiles%\Edgeless\plugin_release\%fileName%"
+ifex '%HideTip%'='TRUE',!exec !"X:\Program Files\Edgeless\dynamic_creator\dynamic_tip.cmd" 4000 Edgeless插件包热加载程序 正在加载插件包"%fileName%"
+writ X:\Users\Log.txt,$+0,load.wcs-正在解压%fileName%，来源：%filePath%
+
+//解压压缩包
+exec =!"%ProgramFiles%\7-Zip_x64\7z.exe" x "%filePath%"  -y -aos -o"%ProgramFiles%\Edgeless\plugin_release\%fileName%"
+
+//扫描压缩包中的文件并记录
+forx %ProgramFiles%\Edgeless\plugin_release\%fileName%\*,compPath,0,
+{
+    name -ext compName=%compPath%
+    name compName_noExt=%compPath%
+    MSTR extName=-1,3,%compName%
+    ifex '%extName%'='cmd',
+    {
+        writ X:\Users\Plugins_info\Batch\%fileName%.txt,$+0,%compName_noExt%_hotload_%counter%.cmd
+        file %compPath%->"%ProgramFiles%\Edgeless\plugin_release\%fileName%\%compName_noExt%_hotload_%counter%.cmd"
+    }
+    ifex '%extName%'='wcs',
+    {
+        writ X:\Users\Plugins_info\Batch\%fileName%.txt,$+0,%compName_noExt%_hotload_%counter%.wcs
+        file %compPath%->"%ProgramFiles%\Edgeless\plugin_release\%fileName%\%compName_noExt%_hotload_%counter%.wcs"
+    }
+    ifex [ ! '%extName%'='cmd' & ! '%extName%'='wcs'],writ X:\Users\Plugins_info\File\%fileName%.txt,$+0,%compName%
+}
+
+//扫描压缩包中的文件夹并记录
+forx @%ProgramFiles%\Edgeless\plugin_release\%fileName%\*,compDPath,0,
+{
+    name -ext compDName=%compDPath%
+    writ X:\Users\Plugins_info\Dir\%fileName%.txt,$+0,%compDName%
+}
+writ X:\Users\Log.txt,$+0,load.wcs-%fileName%的外置批处理列表：
+exec =!cmd.exe /c "type "X:\Users\Plugins_info\Batch\%fileName%.txt" >>X:\Users\Log.txt"
+writ X:\Users\Log.txt,$+0,load.wcs-%fileName%的文件夹列表：
+exec =!cmd.exe /c "type "X:\Users\Plugins_info\Dir\%fileName%.txt" >>X:\Users\Log.txt"
+writ X:\Users\Log.txt,$+0,load.wcs-%fileName%暴露的依赖文件列表：
+exec =!cmd.exe /c "type "X:\Users\Plugins_info\File\%fileName%.txt" >>X:\Users\Log.txt"
+
+file %ProgramFiles%\Edgeless\plugin_release\%fileName%\*->%ProgramFiles%\Edgeless\
 
 writ X:\Users\Log.txt,$+0,========================================================
 forx %ProgramFiles%\Edgeless\*.cmd,cmdPath,0,team exec !%cmdPath%|writ X:\Users\Log.txt,$+0,load.wcs-正在运行：%cmdPath%|wait 50
