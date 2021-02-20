@@ -1,24 +1,24 @@
-//è¯»å–æ’ä»¶æ•°é‡è®¡æ•°å™¨å¹¶è‡ªå¢
+//¶ÁÈ¡²å¼şÊıÁ¿¼ÆÊıÆ÷²¢×ÔÔö
 read "X:\Users\LocalBoost\Counter.txt",1,counter
 calc #counter=%counter%+1
 writ "X:\Users\LocalBoost\Counter.txt",$0,%counter%
 
-//è¯»å–ç›®æ ‡è·¯å¾„å¹¶è§£æ
+//¶ÁÈ¡Ä¿±êÂ·¾¶²¢½âÎö
 read "X:\Users\LocalBoost\unit.txt",1,TargetPath
 name -ext TargetName=%TargetPath%
-writ X:\Users\Log.txt,$+0,LocalBoost-loadUnit å¯åŠ¨ï¼Œcounterï¼š%counter%ï¼Œè¯»å–è·¯å¾„å‚æ•°ï¼š%TargetPath%ï¼Œè§£æåç§°ä¸ºï¼š%TargetName%
+writ X:\Users\Log.txt,$+0,LocalBoost-loadUnit Æô¶¯£¬counter£º%counter%£¬¶ÁÈ¡Â·¾¶²ÎÊı£º%TargetPath%£¬½âÎöÃû³ÆÎª£º%TargetName%
 
-//å»ºç«‹å·¥ä½œç›®å½•
+//½¨Á¢¹¤×÷Ä¿Â¼
 mdir  X:\Users\Plugins_info\Batch
 mdir  X:\Users\Plugins_info\Dir
 mdir  X:\Users\Plugins_info\File
 mdir %TargetPath%\_Batch
 mdir %TargetPath%\_BatchProtect
 
-//å°†æ’ä»¶è®°å½•åˆ°LocalBooståŠ è½½åˆ—è¡¨
+//½«²å¼ş¼ÇÂ¼µ½LocalBoost¼ÓÔØÁĞ±í
 writ X:\Users\Plugins_info\List_LocalBoost.txt,$+0,%TargetName%
 
-//ç”Ÿæˆå¤–ç½®æ‰¹å¤„ç†åˆ—è¡¨ï¼Œç”Ÿæˆé‡å‘½åçš„å¤–ç½®æ‰¹å¤„ç†æ”¾åˆ°_Batchç›®å½•å¹¶å°†æºå¤–ç½®æ‰¹å¤„ç†æ”¾å…¥ä¿æŠ¤ç›®å½•_BatchProtect
+//Éú³ÉÍâÖÃÅú´¦ÀíÁĞ±í£¬Éú³ÉÖØÃüÃûµÄÍâÖÃÅú´¦Àí·Åµ½_BatchÄ¿Â¼²¢½«Ô´ÍâÖÃÅú´¦Àí·ÅÈë±£»¤Ä¿Â¼_BatchProtect
 forx %TargetPath%\*,filePath,0,
 {
     name -ext fileName=%filePath%
@@ -36,10 +36,10 @@ forx %TargetPath%\*,filePath,0,
         file %filePath%=>%TargetPath%\_Batch\%fileName_noExt%_localboost_%counter%.wcs
         file %filePath%->%TargetPath%\_BatchProtect
     }
-    ifex '%fileName%'='_LocalBoost.txt',file %filePath%
+    //ifex '%fileName%'='_LocalBoost.txt',file %filePath%
 }
 
-//ç”Ÿæˆæš´éœ²çš„ä¾èµ–æ–‡ä»¶åˆ—è¡¨ï¼Œä¸ºå…¶åˆ›å»ºé“¾æ¥ï¼ˆå¤åˆ¶ï¼‰
+//Éú³É±©Â¶µÄÒÀÀµÎÄ¼şÁĞ±í£¬ÎªÆä´´½¨Á´½Ó£¨¸´ÖÆ£©
 forx %TargetPath%\*,filePath,0,
 {
     name -ext fileName=%filePath%
@@ -48,21 +48,21 @@ forx %TargetPath%\*,filePath,0,
     file %filePath%=>X:\Program Files\Edgeless
 }
 
-//å¤åˆ¶å¤–ç½®æ‰¹å¤„ç†å¹¶è¿è¡Œ
+//¸´ÖÆÍâÖÃÅú´¦Àí²¢ÔËĞĞ
 forx %TargetPath%\_Batch\*,filePath,0,
 {
     name -ext fileName=%filePath%
     file %filePath%=>X:\Program Files\Edgeless
-    writ X:\Users\Log.txt,$+0,LocalBoost-loadUnit æ­£åœ¨è¿è¡Œï¼š%fileName%
+    writ X:\Users\Log.txt,$+0,LocalBoost-loadUnit ÕıÔÚÔËĞĞ£º%fileName%
     exec !X:\Program Files\Edgeless\%fileName%
 }
 
-//ç§»é™¤ä¸´æ—¶ç›®å½•
+//ÒÆ³ıÁÙÊ±Ä¿Â¼
 file %TargetPath%\_BatchProtect\*->%TargetPath%\
 file %TargetPath%\_Batch
 file %TargetPath%\_BatchProtect
 
-//ç”Ÿæˆä¾èµ–ç›®å½•åˆ—è¡¨ï¼Œä¸ºå…¶åˆ›å»ºé“¾æ¥
+//Éú³ÉÒÀÀµÄ¿Â¼ÁĞ±í£¬ÎªÆä´´½¨Á´½Ó
 forx @%TargetPath%\*,dirPath,0,
 {
     name -ext dirName=%dirPath%
@@ -70,8 +70,14 @@ forx @%TargetPath%\*,dirPath,0,
     flnk -j X:\Program Files\Edgeless\%dirName%,%dirPath%
 }
 
-//åˆ›å»ºLocalBoostå¯åŠ¨æ ‡è®°
+//´´½¨LocalBoostÆô¶¯±ê¼Ç£¬¼ì²é¼æÈİĞÔ
+set alert=0
 forx @%TargetPath%\*,dirPath,0,
 {
+    name -ext dirName=%dirPath%
     writ %dirPath%\_LocalBoost.txt,$0,%TargetPath%\%dirName%
+
+    ifex %dirPath%\*.bat,set alert=1
+    ifex %dirPath%\*.cmd,set alert=1
 }
+ifex %alert%==1,exec !"X:\Program Files\Edgeless\dynamic_creator\dynamic_tip.cmd" 8000 LocalBoost¼æÈİĞÔ¾¯¸æ ²å¼ş"%TargetName%"¿ÉÄÜÎŞ·¨Õı³£Ê¹ÓÃ
