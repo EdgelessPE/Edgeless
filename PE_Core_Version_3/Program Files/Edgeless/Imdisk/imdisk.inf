@@ -1,11 +1,11 @@
 [Version]
 signature = "$Windows NT$"
 Provider = "LTR Data"
-DriverVer=11/19/2018,6.0.6001.18000
+DriverVer=11/25/2018,6.0.6001.18000
 
 
 [SourceDisksNames]
-1 = "ImDisk Virtual Disk Driver 安装磁盘"
+1 = "ImDisk Virtual Disk Driver Installation disk"
 
 
 [SourceDisksFiles.x86]
@@ -223,13 +223,13 @@ HKLM, "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ImDisk", "NoRepair", 
 HKLM, "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ImDisk", "NoModify", 65537, 1
 HKLM, "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ImDisk", "Size", 0, ""
 
-HKCR, "*\shell\ImDiskMountFile", , 0, "加载到 ImDisk 虚拟磁盘"
+HKCR, "*\shell\ImDiskMountFile", , 0, "Mount as ImDisk Virtual Disk"
 HKCR, "*\shell\ImDiskMountFile\command", , 0, "rundll32.exe imdisk.cpl,RunDLL_MountFile %%L"
 
-HKCR, "Drive\shell\ImDiskUnmount", , 0, "卸载 ImDisk 虚拟磁盘"
+HKCR, "Drive\shell\ImDiskUnmount", , 0, "Unmount ImDisk Virtual Disk"
 HKCR, "Drive\shell\ImDiskUnmount\command", , 0, "rundll32.exe imdisk.cpl,RunDLL_RemoveDevice %%L"
 
-HKCR, "Drive\shell\ImDiskSaveImage", , 0, "磁盘内容保存为映像文件"
+HKCR, "Drive\shell\ImDiskSaveImage", , 0, "Save disk contents as image file"
 HKCR, "Drive\shell\ImDiskSaveImage\command", , 0, "rundll32.exe imdisk.cpl,RunDLL_SaveImageFile %%L"
 
 

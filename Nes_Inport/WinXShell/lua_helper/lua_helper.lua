@@ -65,12 +65,13 @@ local function lua_files_load()
 ---[[
   require('debug_helper')
   require('io_helper')
+  require('win_helper')
   require('os_helper')
   require('reg_helper')
-  require('shell_helper')
-  require('str_helper')
-  require('ui_helper')
   require('cmd_helper')
+  require('wxs_helper')
+  require('shell_helper')
+  require('loader_helper')
   require('i18n')
 --]]
 end

@@ -9,41 +9,30 @@ echo %time% 检查更新程序-wim信息%vnw% >>X:\Users\Log.txt
 
 if %vnw:~9,4%==Alpa goto alpha
 
-if not exist version_ol.txt "X:\Program Files\Edgeless\EasyDown\aria2c.exe" -x16 -c -o "version_ol.txt" http://s.edgeless.top/?token=version
+if not exist version_ol.txt "X:\Program Files\Edgeless\EasyDown\aria2c.exe" -x16 -c -o "version_ol.txt" https://pineapple.edgeless.top/api/v2/info/iso_version
 ::if not exist version_ol.txt "X:\Program Files\Edgeless\EasyDown\EasyDown.exe" -Down("http://s.edgeless.top/?token=version","version_ol.txt","X:\Program Files\Edgeless\system_update")
 if not exist version_ol.txt goto df
 set /p vol=<version_ol.txt
 echo %time% 检查更新程序-在线Beta信息%vol% >>X:\Users\Log.txt
 
-if %vol:~20,5%==%vnw:~20,5% goto newest
+if %vol%==%vnw:~20,5% goto newest
 title 发现存在Edgeless更新
 cls
 echo.
 echo.
 echo   当前版本：%vnw:~20,5%
-echo   最新版本：%vol:~20,5%
+echo   最新版本：%vol%
 echo =========================================
 echo.
 echo.
-echo      按任意键开始OTA更新
+echo  请重启回到正常系统后使用Edgeless Hub更新
 echo.
 echo.
 echo.
 echo.
 echo.
 pause
-title 正在检查OTA组件更新
-echo %time% 检查更新程序-下载burnername.txt >>X:\Users\Log.txt
-cls
-if not exist burnername.txt "X:\Program Files\Edgeless\EasyDown\aria2c.exe" -x16 -c -o "burnername.txt" http://s.edgeless.top/?token=burnername
-::if not exist burnername.txt "X:\Program Files\Edgeless\EasyDown\EasyDown.exe" -Down("http://s.edgeless.top/?token=burnername","burnername.txt","X:\Program Files\Edgeless\system_update")
-if not exist burnername.txt call checknet.cmd
-set /p bname=<burnername.txt
-    echo %time% 检查更新程序-burnername名称：%bname% >>X:\Users\Log.txt
-if not defined bname (
-    echo %time% 检查更新程序-burnername变量未定义（奇怪错误） >>X:\Users\Log.txt
-    exit
-)
+exit
 :ctn
 for %%1 in (Z Y X W V U T S R Q P O N M L K J I H G F E D C ) do if exist %%1:\Edgeless\version.txt echo %%1>Npath.txt
 set /p Upath=<Npath.txt
@@ -56,22 +45,24 @@ if not exist %Upath%:\ (
     pause
     goto ctn
 )
-if not exist %Upath%:\Edgeless\Resource\%bname% (
-    echo %time% 检查更新程序-下载新版burner >>X:\Users\Log.txt
-    title 正在更新OTA组件
+if exist "X:\Program Files\Edgeless\Edgeless Hub\edgeless-hub.exe" goto skipDownHub
+title 正在下载Edgeless Hub
+echo %time% 检查更新程序-下载Edgeless Hub >>X:\Users\Log.txt
+cls
+call downloadhub.cmd
+pecmd exec="X:\Program Files\Edgeless\plugin_loader\load.cmd" "X:\Program Files\Edgeless\system_update\hub.7z"
+
+if not exist "X:\Program Files\Edgeless\Edgeless Hub\edgeless-hub.exe" (
+    echo %time% 检查更新程序-Edgeless Hub未加载（奇怪错误） >>X:\Users\Log.txt
     cls
-    call downloadburner.cmd
-    pecmd exec="X:\Program Files\Edgeless\plugin_loader\load.cmd" "X:\Program Files\Edgeless\system_update\burner.7z"
-    copy /y X:\Users\%bname% %Upath%:\Edgeless\Resource\%bname%
+    title 遇到了很奇怪的问题：Edgeless Hub未加载
+    call downloadhub.cmd
+    pecmd exec="X:\Program Files\Edgeless\plugin_loader\load.cmd" "X:\Program Files\Edgeless\system_update\hub.7z"
 )
-if not exist "X:\Program Files\Edgeless\启动盘制作工具\制作启动盘.exe" (
-    echo %time% 检查更新程序-启动盘制作工具未加载（奇怪错误） >>X:\Users\Log.txt
-    cls
-    title 遇到了很奇怪的问题：启动盘制作工具未加载
-    call downloadburner.cmd
-    pecmd exec="X:\Program Files\Edgeless\plugin_loader\load.cmd" "X:\Program Files\Edgeless\system_update\burner.7z"
-)
-pecmd exec "X:\Users\Default\Desktop\制作启动盘.LNK"
+
+:skipDownHub
+pecmd link "X:\Users\Default\Desktop\Edgeless Hub.LNK" "X:\Program Files\Edgeless\Edgeless Hub\edgeless-hub.exe"
+pecmd exec  "X:\Program Files\Edgeless\Edgeless Hub\edgeless-hub.exe"
 exit
 
 
@@ -120,11 +111,11 @@ echo.
 echo  恭喜，当前版本是最新版本！
 echo =========================================
 echo 版本信息：
-echo 完整版本号：%vol%
-echo 系统名称：%vol:~0,8%
-echo 渠道类型：%vol:~9,4%
-echo 发行版本：%vol:~14,5%
-echo 版本编号：%vol:~20,5%
+echo 完整版本号：%vnw%
+echo 系统名称：%vnw:~0,8%
+echo 渠道类型：%vnw:~9,4%
+echo 发行版本：%vnw:~14,5%
+echo 版本编号：%vnw%
 echo =========================================
 echo.
 echo.
@@ -135,12 +126,12 @@ exit
 
 
 :alpha
-if not exist "X:\Program Files\Edgeless\system_update\version_ola.txt" "X:\Program Files\Edgeless\EasyDown\aria2c.exe" -x16 -c -o "version_ola.txt" http://s.edgeless.top/?token=alpha
+if not exist "X:\Program Files\Edgeless\system_update\version_ola.txt" "X:\Program Files\Edgeless\EasyDown\aria2c.exe" -x16 -c -o "version_ola.txt" https://pineapple.edgeless.top/api/v2/alpha/version?token=WDNMD
 ::if not exist "X:\Program Files\Edgeless\system_update\version_ola.txt" "X:\Program Files\Edgeless\EasyDown\EasyDown.exe" -Down("http://s.edgeless.top/?token=alpha","version_ola.txt","X:\Program Files\Edgeless\system_update")
 if not exist "X:\Program Files\Edgeless\system_update\version_ola.txt" goto df
 set /p voa=<"X:\Program Files\Edgeless\system_update\version_ola.txt"
 
-if not exist "X:\Program Files\Edgeless\system_update\version_ol.txt" "X:\Program Files\Edgeless\EasyDown\aria2c.exe" -x16 -c -o "version_ol.txt" http://s.edgeless.top/?token=version
+if not exist "X:\Program Files\Edgeless\system_update\version_ol.txt" "X:\Program Files\Edgeless\EasyDown\aria2c.exe" -x16 -c -o "version_ol.txt" https://pineapple.edgeless.top/api/v2/info/iso_version
 ::if not exist "X:\Program Files\Edgeless\system_update\version_ol.txt" "X:\Program Files\Edgeless\EasyDown\EasyDown.exe" -Down("http://s.edgeless.top/?token=version","version_ol.txt","X:\Program Files\Edgeless\system_update")
 if not exist "X:\Program Files\Edgeless\system_update\version_ol.txt" goto df
 set /p vol=<"X:\Program Files\Edgeless\system_update\version_ol.txt"

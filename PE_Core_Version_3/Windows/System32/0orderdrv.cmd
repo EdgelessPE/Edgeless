@@ -14,11 +14,7 @@ if exist %Upath%:\Edgeless\Config\OrderDrvAnotherWay (
   call 0orderdrv_old.cmd
   exit
 )
-if exist %Upath%:\Edgeless\Config\OrderDrvAnotherWay (
-  
-)
-
-set ver=2019-10-04
+set ver=2020-11-08 PS+
 
 ::If "AUTO" was set to "y", all messed drive letters will be re-ordered automaticly without nitification. 
 ::If "AUTO" was set to "n", a notification will come out to ask for confirmation wether to re-order messed driver letters. 
@@ -54,10 +50,9 @@ if %~d0 neq %systemdrive% (
   if not exist %temp%\%~nx0 (
     copy %0 %temp%\ /y >nul
     copy drvtype.exe %temp%\ /y >nul 2>&1
-    copy pecmd.exe %temp%\ /y >nul 2>&1
     copy fsutil.exe %temp%\ /y >nul 2>&1
     copy mountvol.exe %temp%\ /y >nul 2>&1
-    copy more*.com %temp%\ /y >nul 2>&1
+    copy smartctl.exe %temp%\ /y >nul 2>&1
     pushd %temp%\
     call %~nx0
     exit
@@ -130,6 +125,27 @@ if defined virdrv (
   ) 
 )
 
+::judge if exist powershell and its version
+for /f tokens^=2^ delims^=^" %%a in ('reg query HKLM\SOFTWARE\Classes\Microsoft.PowerShellConsole.1 /v "FriendlyTypeName" ^|find "@"') do (
+  set existps=%%a
+  if defined existps (
+    for /f "tokens=2 delims= " %%b in ('powershell "$psversiontable" ^|find /i "psversion"') do (
+      set psver=%%b
+      set psver=!psver:~0,1!
+      if !psver! GEQ 3 set psok=yes
+    )
+  )
+)
+
+::get SSD by ps
+if !psok!==yes (
+  for /f "tokens=1 delims= " %%a in ('powershell "get-physicaldisk" ^|find "SSD"') do (
+    set ssdok=%%a
+    if defined ssdok (
+      set ssdno=%%a !ssdno!
+    )
+  )
+)
 
 ::get hard disk drive letters, Dataram drive letters and fixed USB drive letters by clonecd's DRVTYPE. 
 for /f "tokens=1-5 delims=|" %%a in ('drvtype -a ^|find ":"') do (
@@ -139,14 +155,26 @@ for /f "tokens=1-5 delims=|" %%a in ('drvtype -a ^|find ":"') do (
   set isssd=%%d
   set strdrv=%%e
   set hddrv=
+  
+  if !psok!==yes (
+    if defined ssdno (
+      for %%g in (!ssdno!) do (
+        if !diskorder!==%%g set isssd=SSD
+      )
+    )
+  ) else (
+    smartctl -i /dev/pd%%a |find "rpm">nul||set isssd=SSD
+  )
 
   if not defined strdrv set strdrv=%%d
 
   for %%f in (!strdrv!) do (
     set eachdrv=%%f
-    set eachdrv=!eachdrv:~1,2!
-    if "!eachdrv:$=!"=="!eachdrv!" set hddrv=!hddrv! !eachdrv!
-    set order=!order! !diskorder!:%%f
+    set eachdrv=!eachdrv:~1,2!!
+    if "!eachdrv:$=!"=="!eachdrv!" (
+      set hddrv=!hddrv! !eachdrv!
+      set order=!order! !diskorder!:%%f
+    )
   )
 
   set strdrv=!hddrv! rem added on Dec. 31, 2018
@@ -198,11 +226,10 @@ for /f "tokens=1-5 delims=|" %%a in ('drvtype -a ^|find ":"') do (
                 )
                 echo Fixed USB !gptmbr! disk !nn! mount path: !hddrv!
               ) else (
-                set isssd=!isssd:SSD=!
-                if !isssd! neq %%d (
+                if "!isssd!"=="SSD" (
                   set /a qq+=1
                   echo Solid State !gptmbr! Hard disk !qq! mount path: !hddrv!
-                  
+                  set ssddrv=!ssddrv! !hddrv!
                   if /i !upactdrv! neq N (
                     if !qq!==1 (
                       for %%f in (!strdrv!) do (
@@ -214,14 +241,15 @@ for /f "tokens=1-5 delims=|" %%a in ('drvtype -a ^|find ":"') do (
                         ) else (
                           if exist %%f\Windows\System32\config (
                             set actdrv=%%f
+                          )
                         )
-                      )
+                      ) 
                     )
                   )
-                )
-                  set ssddrv=!ssddrv! !hddrv!
                 ) else (
                   set /a ll+=1
+                  set thddrv=!thddrv! !hddrv!
+                  echo Internal !gptmbr! hard disk !ll! mount path: !hddrv!
                   if /i !upactdrv! neq N (
                     if !ll!==1 (
                       if not defined actdrv (
@@ -239,18 +267,15 @@ for /f "tokens=1-5 delims=|" %%a in ('drvtype -a ^|find ":"') do (
                       )
                     )
                   )
-                  set thddrv=!thddrv! !hddrv!
-                  echo Internal !gptmbr! hard disk !ll! mount path: !hddrv!
                 )
               )
             )
-          )
+          ) 
         )
       )
     )
   )
 )
-
 
 set newhddrv=!ssddrv! !thddrv! !firadrv! !winvdrv!
 set allhddrv=!newhddrv! !uhddrv!
@@ -527,7 +552,7 @@ for %%a in (%totaldrv%) do (
 if defined ordereddrv (
   if /i !AUTO! equ n (
     echo DRIVE LETTERS to be ordered: %ordereddrv:~0,-1%
-    set doorder=y
+    set /p doorder="Are you sure to make above drive letter changes (Y/N)"
     if /i !doorder! equ y (
       call :mountbegin
       if errorlevel 0 (
@@ -547,10 +572,9 @@ if defined ordereddrv (
 
 if %~d0 neq %systemdrive% (
   if exist %temp%\drvtype.exe del %temp%\drvtype.exe
-  if exist %temp%\pecmd.exe del %temp%\pecmd.exe
+  if exist %temp%\smartctl.exe del %temp%\smartctl.exe
   if exist %temp%\mountvol.exe del %temp%\mountvol.exe
   if exist %temp%\fsutil.exe del %temp%\fsutil.exe
-  if exist %temp%\more*.com del %temp%\more*.com
   if exist %temp%\%~nx0 del %temp%\%~nx0
 )
 
@@ -639,25 +663,10 @@ if defined hdvir (
 goto :eof
 
 :fsutil
-
-for /f "delims=. tokens=1" %%a in ('ver') do (
-  set isten=%%a
-  set isten=!isten:~-1!
-  if defined isten (
-    if !isten! neq 0 (
-      for /f "delims=:\ " %%a in ('fsutil.exe fsinfo drives^|more-xp') do (
+      for /f "delims=:\ " %%a in ('fsutil.exe fsinfo drives^|more') do (
         set tmpdrv=%%a
         if !tmpdrv:~-2! equ %%a set ALLDRV=!ALLDRV! %%a:
       )
-    ) else (
-      for /f "delims=:\ " %%a in ('fsutil.exe fsinfo drives^|more-w10') do (
-        set tmpdrv=%%a
-        if !tmpdrv:~-2! equ %%a set ALLDRV=!ALLDRV! %%a:
-      )
-    )
-  )
-)
-
 goto :eof
 
 :end

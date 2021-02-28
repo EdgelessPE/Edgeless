@@ -1,5 +1,14 @@
+@echo off
+
 setlocal
+
 pushd "%~dp0"
+
+title ImDisk Virtual Disk Driver setup
+
+echo ImDisk Virtual Disk Driver setup
+echo.
+
 set IMDISK_TOTAL_DEVICES=0
 set IMDISK_VALID_DEVICES=0
 set IMDISK_PENDING_REMOVAL_DEVICES=0
@@ -12,16 +21,19 @@ if %IMDISK_VALID_DEVICES% GTR 0 (
   echo Number of existing ImDisk virtual disks: %IMDISK_VALID_DEVICES%
   echo.
   if "%IMDISK_SILENT_SETUP%" == "1" (
-    echo Fail
+    echo Please dismount all existing ImDisk virtual disks before upgrade!
+    echo.
   ) else (
-    echo Fail
-     exit
+    .\msgboxw.exe "Please dismount all existing ImDisk virtual disks before upgrade!" 16 "ImDisk Virtual Disk Driver setup"
+    start "" "%SystemRoot%\system32\control.exe" "%SystemRoot%\system32\imdisk.cpl"
   )
   popd
   endlocal
   goto :eof
 )
-echo 现有 ImDisk 虚拟磁盘数量: %IMDISK_TOTAL_DEVICES%
+
+echo Number of existing ImDisk virtual disks: %IMDISK_TOTAL_DEVICES%
+echo.
 if %IMDISK_TOTAL_DEVICES% == 0 (
   "%SystemRoot%\system32\net.exe" stop imdsksvc
   "%SystemRoot%\system32\net.exe" stop awealloc
@@ -32,7 +44,7 @@ if %IMDISK_TOTAL_DEVICES% == 0 (
 "%SystemRoot%\system32\rundll32.exe" setupapi.dll,InstallHinfSection DefaultInstall 132 .\imdisk.inf
 
 if errorlevel 1 (
-  if not "%IMDISK_SILENT_SETUP%" == "1" echo Fail
+  if not "%IMDISK_SILENT_SETUP%" == "1" .\msgboxw.exe "Setup failed. Please try to reboot the computer and then try to run the setup package again." 16 "ImDisk Virtual Disk Driver setup"
   popd
   endlocal
   goto :eof
@@ -48,9 +60,9 @@ if %IMDISK_TOTAL_DEVICES% == 0 (
 
 if not "%IMDISK_SILENT_SETUP%" == "1" (
   if %IMDISK_START_FAILED% == 0 (
-   echo Success
+   .\msgboxw.exe "Setup finished successfully. Open ImDisk Virtual Disk Driver applet in Control Panel or use imdisk command line to manage your virtual disks!" 0 "ImDisk Virtual Disk Driver setup"
   ) else (
-   echo Fail
+   .\msgboxw.exe "Setup finished, but drivers or services could not start. Please try to reboot the computer and then try to run the setup package again." 16 "ImDisk Virtual Disk Driver setup"
   )
 )
 

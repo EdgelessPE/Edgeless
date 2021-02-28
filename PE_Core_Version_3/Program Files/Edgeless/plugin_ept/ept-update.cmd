@@ -1,7 +1,7 @@
 @echo off
 echo %time% ept-update-运行，开始下载插件索引 >>X:\Users\Log.txt
 echo ept-update 开始更新插件索引...
-"X:\Program Files\Edgeless\EasyDown\aria2c.exe" -x16 -c -d X:\Users\ept -o Data.txt http://s.edgeless.top/?token=index >>X:\Users\Log.txt
+"X:\Program Files\Edgeless\EasyDown\aria2c.exe" -x16 -c -d X:\Users\ept -o Data.txt https://pineapple.edgeless.top/api/v2/ept/index >>X:\Users\Log.txt
 if exist X:\Users\ept\Data.txt (
     echo %time% ept-update-索引下载成功 >>X:\Users\Log.txt
     if exist X:\Users\ept\Index del /f /q X:\Users\ept\Index>nul

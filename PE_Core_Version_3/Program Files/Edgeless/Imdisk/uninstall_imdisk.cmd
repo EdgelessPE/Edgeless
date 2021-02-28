@@ -2,9 +2,9 @@
 
 setlocal
 
-title ImDisk Virtual Disk Driver 卸载
+title ImDisk Virtual Disk Driver Uninstall
 
-echo ImDisk Virtual Disk Driver 卸载
+echo ImDisk Virtual Disk Driver Uninstall
 echo.
 
 set IMDISK_TOTAL_DEVICES=0
@@ -16,9 +16,9 @@ if exist "%SystemRoot%\system32\imdisk.exe" (
 )
 
 if %IMDISK_VALID_DEVICES% GTR 0 (
-  echo 现有 ImDisk 虚拟磁盘的数量: %IMDISK_VALID_DEVICES%
+  echo Number of existing ImDisk virtual disks: %IMDISK_VALID_DEVICES%
   echo.
-  echo 卸载前请卸载所有现有的 ImDisk 虚拟磁盘！
+  echo Please dismount all existing ImDisk virtual disks before uninstall!
   echo.
   if not "%IMDISK_SILENT_SETUP%" == "1" (
     pause

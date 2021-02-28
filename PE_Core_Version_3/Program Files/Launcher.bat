@@ -152,6 +152,10 @@ if exist %Upath%:\Edgeless\Config\AutoUnattend pecmd file X:\Users\Imdisk\AutoUn
 if exist %Upath%:\Edgeless\Config\UnfoldRibbon echo %time% Launcher-响应展开资源管理器功能区开关 >>X:\Users\Log.txt
 if exist %Upath%:\Edgeless\Config\UnfoldRibbon reg add "HKCU\Software\Policies\Microsoft\Windows\Explorer" /f /v "ExplorerRibbonStartsMinimized" /t REG_DWORD /d 2
 
+::响应挂载所有分区
+if exist %Upath%:\Edgeless\Config\MountEveryPartition echo %time% Launcher-响应显示所有分区 >>X:\Users\Log.txt
+if exist %Upath%:\Edgeless\Config\MountEveryPartition pecmd SHOW =1 *
+
 ::过期插件包检测与提醒
 if exist %Upath%:\Edgeless\Config\NoOutDateCheck echo %time% Launcher-响应禁用过期插件包检测开关 >>X:\Users\Log.txt
 if not exist %Upath%:\Edgeless\Config\NoOutDateCheck pecmd exec !"%ProgramFiles%\Edgeless\plugin_outdatedcheck\compare.cmd"
