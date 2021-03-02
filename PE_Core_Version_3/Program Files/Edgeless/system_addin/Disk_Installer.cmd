@@ -78,6 +78,48 @@ if not exist %a%:\Recovery\WindowsRE\Winre.wim (
     pause >nul
 )
 
+::扫描EdgelessU盘
+:reCheckELU
+echo %time% Disk_Installer-开始扫描EdgelessU盘 >>X:\Users\Log.txt
+del /f /q Upath.txt >nul
+for %%1 in (Z Y X W V U T S R Q P O N M L K J I H G F E D C ) do if exist %%1:\Edgeless\version.txt echo %%1>Upath.txt
+set /p Upath=<Upath.txt
+echo %time% Disk_Installer-使用%Upath%%作为Edgeless盘符 >>X:\Users\Log.txt
+if not defined Upath (
+    echo %time% Disk_Installer-要求插入U盘 >>X:\Users\Log.txt
+    cls
+    echo.
+    echo 请插入Edgeless启动盘，然后按任意键继续
+    pause >nul
+    goto reCheckELU
+)
+
+::找出最新的wim文件
+
+::列出所有.wim文件
+dir /b %Upath%:\*.wim >1.tmp
+
+::查找Edgeless_Beta开头的文件
+findstr /b /c:"Edgeless_Beta_" 1.tmp >2.tmp
+
+::找出版本号最高的
+set maxVer=1.0.0
+for /f "usebackq delims==_ tokens=1,2,3*" %%i in (2.tmp) do (
+    if "!maxVer!" lss "%%~nk" set "maxVer=%%~nk"
+)
+echo %time% Disk_Installer-最新版wim文件为：Edgeless_Beta_%maxVer%.wim >>X:\Users\Log.txt
+del /f /q *.tmp
+
+if not exist %Upath%:\Edgeless_Beta_%maxVer%.wim (
+    echo %time% Disk_Installer-不存在Edgeless_Beta_%maxVer%.wim，校验失败 >>X:\Users\Log.txt
+    cls
+    echo.
+    echo %Upath%上的启动盘不包含符合文件命名规范的.wim启动文件，无法继续操作
+    echo 不存在%Upath%:\Edgeless_Beta_%maxVer%.wim
+    pause >nul
+    exit
+)
+
 ::备份原Winre文件
 echo %time% Disk_Installer-开始备份原Winre文件 >>X:\Users\Log.txt
 takeown /f %a%:\Recovery\WindowsRE\Winre.wim
@@ -97,43 +139,18 @@ if exist %a%:\Recovery\WindowsRE\Winre.wim (
     goto checkRen
 )
 
-::扫描EdgelessU盘
-:reCheckELU
-echo %time% Disk_Installer-开始扫描EdgelessU盘 >>X:\Users\Log.txt
-del /f /q Upath.txt >nul
-for %%1 in (Z Y X W V U T S R Q P O N M L K J I H G F E D C ) do if exist %%1:\Edgeless\version.txt echo %%1>Upath.txt
-set /p Upath=<Upath.txt
-echo %time% Disk_Installer-使用%Upath%%作为Edgeless盘符 >>X:\Users\Log.txt
-if not defined Upath (
-    echo %time% Disk_Installer-要求插入U盘 >>X:\Users\Log.txt
-    cls
-    echo.
-    echo 请插入Edgeless启动盘，然后按任意键继续
-    pause >nul
-    goto reCheckELU
-)
-if not exist %Upath%:\sources\boot.wim (
-    echo %time% Disk_Installer-不存在boot.wim，校验失败 >>X:\Users\Log.txt
-    cls
-    echo.
-    echo %Upath%上的启动盘不合法
-    echo 请将其拔出然后插入Edgeless启动盘，然后按任意键继续
-    pause >nul
-    goto reCheckELU
-)
-
 ::复制boot.wim
 :copyCheckWim
 echo %time% Disk_Installer-开始复制boot.wim >>X:\Users\Log.txt
 title 正在复制Edgeless核心
 cls
 echo 正在复制Edgeless核心...
-copy /y %Upath%:\sources\boot.wim %a%:\Recovery\WindowsRE\Winre.wim
+copy /y %Upath%:\Edgeless_Beta_%maxVer%.wim %a%:\Recovery\WindowsRE\Winre.wim
     if not exist %a%:\Recovery\WindowsRE\Winre.wim (
     echo %time% Disk_Installer-复制boot.wim失败 >>X:\Users\Log.txt
         explorer %a%:\Recovery\WindowsRE
         echo ==================================================================================================
-        echo 拷贝%Upath%:\sources\boot.wim至%a%:\Recovery\WindowsRE\Winre.wim失败，请手动复制或按任意键重试
+        echo 拷贝%Upath%:\Edgeless_Beta_%maxVer%.wim至%a%:\Recovery\WindowsRE\Winre.wim失败，请手动复制或按任意键重试
         echo ==================================================================================================
         pause >nul
         goto copyCheckWim
