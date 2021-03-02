@@ -1,7 +1,0 @@
-{
-  "name":"UI_Launcher",
-  "singleton":true,
-  "nobaricon":true,
-  "position":"leftbottom",
-  "OnDeactive":"hide"
-}

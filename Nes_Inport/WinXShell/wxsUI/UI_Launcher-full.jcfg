@@ -1,9 +1,0 @@
-{
-  "name":"UI_Launcher",
-  "singleton":true,
-  "lua":"main-full.lua",
-  "nobaricon":true,
-  "position":"leftbottom",
-  "startup_win":"max",
-  "#OnDeactive":"hide"
-}
