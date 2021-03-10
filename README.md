@@ -40,7 +40,7 @@ Clone此仓库，然后将Core部分的文件夹覆盖复制到您的PE项目文
 >核心版本号最后一位不为0的版本为Alpha内测版本（例如3.1.2），需要在[内测群](https://home.edgeless.top/jump/qqg.html)获取
 
 ## 插件包使用授权
-尽管我们的源代码是开源的，但是您在使用我们提供的下载站提供插件包时用到了我们提供的服务，而这一服务需要授权，[点击此处](https://wiki.edgeless.top/1398297)查看授权的详细情况
+尽管我们的源代码是开源的，但是您在使用我们提供的下载站提供插件包时用到了我们提供的服务，而这一服务需要授权，[点击此处](https://wiki.edgeless.top/v2/cooperation/permit.html)查看授权的详细情况
 
 ## 其他类型的授权
-[点击此处](https://wiki.edgeless.top/1398297)查看其他授权的详细情况
+[点击此处](https://wiki.edgeless.top/v2/cooperation/permit.html)查看其他授权的详细情况
