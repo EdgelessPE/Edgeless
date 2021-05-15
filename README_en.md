@@ -38,7 +38,7 @@ Visit [Home Page](https://home.edgeless.top) or [Download Station](https://down.
 >Releases whose last number of version unequal to zero are alpha releases（ex 3.1.2），they can be get inside our [QQ Group](https://home.edgeless.top/jump/qqg.html)
 
 ## Authorization For Using Plug-in Packages
-Though our codes are open sourced，but your project's access to using our download station requires our service，and it needs authorization，[click](https://wiki.edgeless.top/1398297) to learn more
+Though our codes are open sourced，but your project's access to using our download station requires our service，and it needs authorization，[click](https://wiki.edgeless.top/v2/cooperation/permit.html) to learn more
 
 ## Other Types Of Authorization
-[Click](https://wiki.edgeless.top/1398297) to learn more
+[Click](https://wiki.edgeless.top/v2/cooperation/permit.html) to learn more
