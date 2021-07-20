@@ -58,14 +58,6 @@ if %IMDISK_TOTAL_DEVICES% == 0 (
   net start imdisk || set IMDISK_START_FAILED=1
 )
 
-if not "%IMDISK_SILENT_SETUP%" == "1" (
-  if %IMDISK_START_FAILED% == 0 (
-   .\msgboxw.exe "Setup finished successfully. Open ImDisk Virtual Disk Driver applet in Control Panel or use imdisk command line to manage your virtual disks!" 0 "ImDisk Virtual Disk Driver setup"
-  ) else (
-   .\msgboxw.exe "Setup finished, but drivers or services could not start. Please try to reboot the computer and then try to run the setup package again." 16 "ImDisk Virtual Disk Driver setup"
-  )
-)
-
 popd
 
 endlocal

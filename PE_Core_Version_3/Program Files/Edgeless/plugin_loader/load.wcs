@@ -69,6 +69,6 @@ exec =!cmd.exe /c "type "X:\Users\Plugins_info\File\%fileName%.txt" >>X:\Users\L
 file %ProgramFiles%\Edgeless\plugin_release\%fileName%\*->%ProgramFiles%\Edgeless\
 
 writ X:\Users\Log.txt,$+0,========================================================
-forx %ProgramFiles%\Edgeless\*.cmd,cmdPath,0,team exec !%cmdPath%|writ X:\Users\Log.txt,$+0,load.wcs-正在运行：%cmdPath%|wait 50
-forx %ProgramFiles%\Edgeless\*.wcs,wcsPath,0,team exec !%wcsPath%|writ X:\Users\Log.txt,$+0,load.wcs-正在运行：%wcsPath%|wait 50
+forx %ProgramFiles%\Edgeless\*.cmd,cmdPath,0,team exec -wd:"%ProgramFiles%\Edgeless" !%cmdPath%|writ X:\Users\Log.txt,$+0,load.wcs-正在运行：%cmdPath%|wait 50
+forx %ProgramFiles%\Edgeless\*.wcs,wcsPath,0,team exec -wd:"%ProgramFiles%\Edgeless" !%wcsPath%|writ X:\Users\Log.txt,$+0,load.wcs-正在运行：%wcsPath%|wait 50
 ifex '%HideTip%'='TRUE',!exec !"X:\Program Files\Edgeless\dynamic_creator\dynamic_tip.cmd" 2500 Edgeless插件包热加载程序 "%fileName%"加载完成

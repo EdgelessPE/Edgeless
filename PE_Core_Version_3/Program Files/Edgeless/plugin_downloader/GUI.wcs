@@ -8,12 +8,12 @@ GROU Group4,L15T255W360H80,安全
 GROU Group5,L15T335W360H80,工具
 GROU Group5,L15T415W360H80,下载
 
-ITEM Button1,L40T40W145H40,    Chrome,TEAM envi w="Google Chrome"|call @windows2,X:\Users\Icon\down\chrome.ico
+ITEM Button1,L40T40W145H40,    Chrome,TEAM envi w=Chrome|call @windows2,X:\Users\Icon\down\chrome.ico
 ITEM Button2,L210T40W145H40,    世界之窗,TEAM envi w=世界之窗浏览器|call @windows2,X:\Users\Icon\down\theworld.ico
 ITEM Button3,L40T120W145H40,     Anydesk,TEAM envi w=Anydesk|call @windows2,X:\Users\Icon\down\anydesk.ico
 ITEM Button4,L210T120W145H40,     向日葵,TEAM envi w=向日葵远程控制|call @windows2,X:\Users\Icon\down\XRK.ico
 ITEM Button5,L40T200W145H40,     微信,TEAM envi w=Wechat|call @windows2,X:\Users\Icon\down\Wechat.ico
-ITEM Button6,L210T200W145H40,    QQ,TEAM envi w=QQ|call @windows2,X:\Users\Icon\down\qq.ico
+ITEM Button6,L210T200W145H40,    QQ,TEAM envi w=QQ官方版|call @windows2,X:\Users\Icon\down\qq.ico
 ITEM Button7,L40T280W145H40,     360急救箱,TEAM envi w=360急救箱|call @windows2,X:\Users\Icon\down\sk.ico
 ITEM Button8,L210T280W145H40,     火绒安全,TEAM envi w=火绒安全|call @windows2,X:\Users\Icon\down\huorong.ico
 ITEM Button9,L40T360W145H40,      傲梅分区助手,TEAM envi w=分区助手|call @windows2,X:\Users\Icon\down\part.ico
