@@ -20,7 +20,7 @@
 ## Licence
 The original codes of Edgeless Project are open sourced under [Mozilla Public Licence 2.0](https://www.mozilla.org/en-US/MPL/)，except `setTheme.cmd`
 
->According to MPL2.0，every project containing our original code should notes the copyright of codes（that can be the link of our github page [https://github.com/Cnotech/Edgeless-Project](https://github.com/Cnotech/Edgeless-Project) or homepage [https://home.edgeless.top/](https://home.edgeless.top/)），projects which violating this term will be treated as tortious project,Edgeless reserve the right to hold such project accountable
+>According to MPL2.0，every project containing our original code should notes the copyright of codes（that can be the link of our github page [https://github.com/EdgelessPE/Edgeless](https://github.com/EdgelessPE/Edgeless) or homepage [https://home.edgeless.top/](https://home.edgeless.top/)），projects which violating this term will be treated as tortious project,Edgeless reserve the right to hold such project accountable
 
 > Obviously，not all of the files in the repository are our original codes
 
@@ -38,7 +38,7 @@ Visit [Home Page](https://home.edgeless.top) or [Download Station](https://down.
 >Releases whose last number of version unequal to zero are alpha releases（ex 3.1.2），they can be get inside our [QQ Group](https://home.edgeless.top/jump/qqg.html)
 
 ## Authorization For Using Plug-in Packages
-Though our codes are open sourced，but your project's access to using our download station requires our service，and it needs authorization，[click](https://wiki.edgeless.top/1398297) to learn more
+Though our codes are open sourced，but your project's access to using our download station requires our service，and it needs authorization，[click](https://wiki.edgeless.top/v2/cooperation/permit.html) to learn more
 
 ## Other Types Of Authorization
-[Click](https://wiki.edgeless.top/1398297) to learn more
+[Click](https://wiki.edgeless.top/v2/cooperation/permit.html) to learn more
