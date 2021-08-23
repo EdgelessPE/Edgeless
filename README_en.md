@@ -31,7 +31,7 @@ The original codes of Edgeless Project are open sourced under [Mozilla Public Li
 Clone this repository，cover your own PE project folder with files in the `Core` folder then begin to fix bugs
 > Users who lack of the basic knowledge of Windows and WinPE are not recommended to do such work
 
-Otherwise，PECMD is necessary to your PE project，we recommend `Wimbuilder` series to build your PE core
+In addition, your PE needs to add PECMD support and complete the build，we recommend `Wimbuilder` series to build your PE core
 
 ## Get Release & Modules
 Visit [Home Page](https://home.edgeless.top) or [Download Station](https://down.edgeless.top)
