@@ -16,7 +16,7 @@ body:
     id: hardware
     attributes:
       label: Maybe it's a hardware incompatible problem?
-      description: Have you tried with other hardware,like a brandnew USB Flash Driver or a newly bought PC?
+      description: Have you tried with other hardware,like a brandnew USB Flash Drive or a newly bought PC?
       options:
         - Yes. I use Edgeless with modern hardware.
         - No. I don't know Edgeless Project won't care about compatible.
