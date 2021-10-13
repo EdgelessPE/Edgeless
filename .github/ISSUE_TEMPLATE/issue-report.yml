@@ -1,0 +1,50 @@
+name: Issue Report
+description: File an issue report
+title: "[issue]: "
+assignees:
+  - Cnotech
+body:
+  - type: checkboxes
+    id: wiki
+    attributes:
+      label: Official Wiki
+      description: Have you checked our official Wiki at [https://wiki.edgeless.top](https://wiki.edgeless.top/v2/required.html) ?
+      options:
+        - label: I've checked the official Wiki throughout. 
+          required: true
+  - type: dropdown
+    id: hardware
+    attributes:
+      label: Maybe it's a hardware incompatible problem?
+      description: Have you tried with other hardware,like a brandnew USB Flash Driver or a newly bought PC?
+      options:
+        - Yes. I use Edgeless with modern hardware.
+        - No. I don't know Edgeless Project won't care about compatible.
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Edgeless Version
+      description: Which version of Edgeless are you running?
+      placeholder: 3.2.0
+    validations:
+      required: true
+  - type: dropdown
+    id: alpha
+    attributes:
+      label: What about alpha release?
+      description: Have you tried with the latest alpha release of Edgeless?
+      options:
+        - Yes. I have tried the latest alpha release.
+        - No. I don't know where to get alpha release.
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Tell me what happened. It's highly recommended to include some photo or screenshots.
+      placeholder: Input a bug description or a suggestion
+    validations:
+      required: true
