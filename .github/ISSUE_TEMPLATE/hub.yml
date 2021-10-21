@@ -1,0 +1,46 @@
+name: Hub Issue
+description: Report Edgeless Hub issue, including interaction issues with Ventoy
+title: "[hub]: "
+assignees:
+  - Cnotech
+body:
+  - type: checkboxes
+    id: wiki
+    attributes:
+      label: Official Wiki
+      description: Have you checked our official Wiki at [https://wiki.edgeless.top](https://wiki.edgeless.top/v2/required.html) ?
+      options:
+        - label: I've checked the official Wiki throughout. 
+          required: true
+  - type: checkboxes
+    id: ventoy
+    attributes:
+      label: Ventoy Wiki
+      description: We won't deal with Ventoy self issues here,if you ran into a Ventoy issue please redirect to [https://ventoy.net/cn/faq.html](https://ventoy.net/cn/faq.html)
+      options:
+        - label: This is not a Ventoy self issue or a hardware incompatible problem.
+          required: true
+  - type: input
+    id: version
+    attributes:
+      label: Edgeless Hub Version
+      description: Which version of Edgeless Hub are you using?
+      placeholder: 2.02
+    validations:
+      required: true
+  - type: checkboxes
+    id: latest
+    attributes:
+      label: What about the latest release?
+      description: Have you tried with the latest release of Edgeless Hub?
+      options:
+        - label: Yes. That still happens.
+          required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Tell me what happened. It's highly recommended to include some photo or screenshots.
+      placeholder: Input a bug description or a suggestion with some pictures
+    validations:
+      required: true

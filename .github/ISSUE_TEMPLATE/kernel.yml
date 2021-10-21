@@ -1,6 +1,6 @@
-name: Issue Report
-description: File an issue report
-title: "[issue]: "
+name: Kernel Issue
+description: Report Edgeless Kernel issue, including ept and plugin
+title: "[kernel]: "
 assignees:
   - Cnotech
 body:
@@ -45,6 +45,6 @@ body:
     attributes:
       label: What happened?
       description: Tell me what happened. It's highly recommended to include some photo or screenshots.
-      placeholder: Input a bug description or a suggestion
+      placeholder: Input a bug description or a suggestion with some pictures
     validations:
       required: true

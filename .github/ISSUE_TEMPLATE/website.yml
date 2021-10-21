@@ -1,0 +1,14 @@
+name: Website Issue
+description: Report website issue, any website under edgeless.top
+title: "[website]: "
+assignees:
+  - Cnotech
+body:
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Tell me what happened. It's highly recommended to include some photo or screenshots.
+      placeholder: Input a error description or a suggestion with some pictures
+    validations:
+      required: true
