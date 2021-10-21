@@ -25,7 +25,7 @@ body:
     attributes:
       label: Edgeless Hub Version
       description: Which version of Edgeless Hub are you using?
-      placeholder: 2.02
+      placeholder: e.g. 2.02
     validations:
       required: true
   - type: checkboxes
