@@ -16,8 +16,7 @@
   <a href="https://home.edgeless.top/jump/qqg.html">QQ群</a>
 </p>
 
-### [👉English Version （May not the latest）](https://github.com/EdgelessPE/Edgeless/blob/master/README_en.md)
-
+简体中文 | [English](https://github.com/EdgelessPE/Edgeless/blob/master/README_en.md)
 
 ## 许可证
 Edgeless的**自编代码**基于[MPL2.0](https://www.mozilla.org/en-US/MPL/)许可证开源，除了`setTheme.cmd`
@@ -44,3 +43,10 @@ Clone此仓库，然后将Core部分的文件夹覆盖复制到您的PE项目文
 
 ## 其他类型的授权
 [点击此处](https://wiki.edgeless.top/v2/cooperation/permit.html)查看其他授权的详细情况
+
+## Awesome Edgeless
+查看 Edgeless 生态中值得注意的一些项目👇
+
+* [Edgeless Hub](https://github.com/EdgelessPE/edgeless-hub) -🚀 Edgeless 聚合桌面客户端
+* [Edgeless Bot](https://github.com/EdgelessPE/edgeless-bot) -🤖 每日检查上游更新并自动构建插件包
+* [what-did-ventoy-do](https://github.com/EdgelessPE/what-did-ventoy-do) - 分析 Ventoy2Disk 日志以获取 Ventoy 信息

@@ -16,6 +16,7 @@
   <a href="https://home.edgeless.top/jump/qqg.html">QQ Group</a>
 </p>
 
+[简体中文](https://github.com/EdgelessPE/Edgeless) | English
 
 ## License
 The original codes of Edgeless Project are open sourced under [Mozilla Public License 2.0](https://www.mozilla.org/en-US/MPL/),except `setTheme.cmd`.
@@ -42,3 +43,10 @@ Though our codes are open sourced,your project's access to using our download st
 
 ## Other Types Of Authorization
 [Click here](https://wiki.edgeless.top/v2/cooperation/permit.html) to learn more
+
+## Awesome Edgeless
+Check out some remarkable projects in Edgeless ecology 👇
+
+* [Edgeless Hub](https://github.com/EdgelessPE/edgeless-hub) -🚀 Integraded desktop application for Edgeless
+* [Edgeless Bot](https://github.com/EdgelessPE/edgeless-bot) -🤖 Automatically scrape PortableApps.com (or official release page) and convert into Edgeless plugin package
+* [what-did-ventoy-do](https://github.com/EdgelessPE/what-did-ventoy-do) - Analyse Ventoy log to know what did ventoy do
