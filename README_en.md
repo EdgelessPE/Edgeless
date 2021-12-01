@@ -6,7 +6,7 @@
   <br>
 </h1>
 
-<h4 align="center">Powerful and Graceful Preinstallation Environment<br>Also may be the first partly-opensource PE Project in the eastern hemisphere</h4>
+<h4 align="center">Powerful and Graceful Preinstallation Environment<br>Also may be the first partial-opensource PE Project in the eastern hemisphere</h4>
 
 <p align="center">
   <a href="https://home.edgeless.top">Home Page</a> •
@@ -18,27 +18,27 @@
 
 
 ## License
-The original codes of Edgeless Project are open sourced under [Mozilla Public License 2.0](https://www.mozilla.org/en-US/MPL/)，except `setTheme.cmd`
+The original codes of Edgeless Project are open sourced under [Mozilla Public License 2.0](https://www.mozilla.org/en-US/MPL/),except `setTheme.cmd`.
 
->According to MPL2.0，every project containing our original code should notes the copyright of codes（that can be the link of our github page [https://github.com/EdgelessPE/Edgeless](https://github.com/EdgelessPE/Edgeless) or homepage [https://home.edgeless.top/](https://home.edgeless.top/)），projects which violating this term will be treated as tortious project,Edgeless reserve the right to hold such project accountable
+>According to MPL2.0,projects containing our original code should notes the copyright of codes（the link of our github page [https://github.com/EdgelessPE/Edgeless](https://github.com/EdgelessPE/Edgeless) or homepage [https://home.edgeless.top/](https://home.edgeless.top/)）.Projects violating this term will be treated as tortious project,Edgeless Team reserve the right to hold such project accountable.
 
-> Obviously，not all of the files in the repository are our original codes
+> Obviously,not all of the files in the repository are our original codes.
 
-> Although `setTheme.cmd` isn't open sourced，we won't oppose remaking the file
+> Although `setTheme.cmd` isn't open sourced,we won't oppose remaking the file.
 
 
 ## Quick Start
-Clone this repository，cover your own PE project folder with files in the `Core` folder then begin to fix bugs
-> Users who lack of the basic knowledge of Windows and WinPE are not recommended to do such work
+Clone this repository,cover your own PE project folder with files in the `Core` folder then begin to fix bugs.
+> Users who lack of the basic knowledge of Windows and WinPE are not recommended to do such work.
 
-In addition, your PE needs to add PECMD support and complete the build，we recommend `Wimbuilder` series to build your PE core
+In addition, your should build your PE core first and add PECMD support,we recommend `Wimbuilder` series to build your PE core.
 
 ## Get Release & Modules
-Visit [Home Page](https://home.edgeless.top) or [Download Station](https://down.edgeless.top)
->Releases whose last number of version unequal to zero are alpha releases（ex 3.1.2），they can be get inside our [QQ Group](https://home.edgeless.top/jump/qqg.html)
+Visit [Home Page](https://home.edgeless.top) or [Download Station](https://down.edgeless.top).
+>Releases with last number of version unequal to zero belong to alpha releases（e.g 3.1.2）,can be got with [Alpha Token](https://home.edgeless.top/jump/qqg.html).
 
-## Authorization For Using Plug-in Packages
-Though our codes are open sourced，but your project's access to using our download station requires our service，and it needs authorization，[click](https://wiki.edgeless.top/v2/cooperation/permit.html) to learn more
+## Authorization For Using Plugin-packages
+Though our codes are open sourced,your project's access to using our download station requires our maintaining service,which needs authorization,[click here](https://wiki.edgeless.top/v2/cooperation/permit.html) to learn more.
 
 ## Other Types Of Authorization
-[Click](https://wiki.edgeless.top/v2/cooperation/permit.html) to learn more
+[Click here](https://wiki.edgeless.top/v2/cooperation/permit.html) to learn more

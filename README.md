@@ -33,11 +33,11 @@ Edgeless的**自编代码**基于[MPL2.0](https://www.mozilla.org/en-US/MPL/)许
 Clone此仓库，然后将Core部分的文件夹覆盖复制到您的PE项目文件夹中，然后进行问题检修工作
 >我们不建议缺乏Windows系统和WinPE基础知识的使用者进行此工作
 
-此外，您的PE需要添加PECMD支持并完成构建，我们推荐使用Wimbuilder系列软件构建您的PE核心
+此外，您的PE需要添加PECMD支持并完成构建，我们推荐使用`Wimbuilder`系列软件构建您的PE核心
 
 ## 获取发行和组件
 请前往[主页](https://home.edgeless.top)或[下载站](https://down.edgeless.top)查看
->核心版本号最后一位不为0的版本为Alpha内测版本（例如3.1.2），需要在[内测群](https://home.edgeless.top/jump/qqg.html)获取
+>核心版本号最后一位不为0的版本为Alpha内测版本（例如3.1.2），需要持有[内测邀请码](https://home.edgeless.top/jump/qqg.html)获取
 
 ## 插件包使用授权
 尽管我们的源代码是开源的，但是您在使用我们提供的下载站提供插件包时用到了我们提供的服务，而这一服务需要授权，[点击此处](https://wiki.edgeless.top/v2/cooperation/permit.html)查看授权的详细情况
