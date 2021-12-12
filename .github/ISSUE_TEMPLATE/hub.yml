@@ -40,7 +40,7 @@ body:
     id: what-happened
     attributes:
       label: What happened?
-      description: Tell me what happened. It's highly recommended to include some photo or screenshots.
+      description: It's highly recommended to include some photo or screenshots with [devtool open](https://wiki.edgeless.top/v2/faq/fail2burn.html).
       placeholder: Input a bug description or a suggestion with some pictures
     validations:
       required: true
