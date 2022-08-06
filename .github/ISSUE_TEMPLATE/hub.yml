@@ -42,10 +42,9 @@ body:
       label: Which version of Windows are you using?
       description: Note that use Hub with english version of Windows 11 do has a few unknown bugs.
       options:
-        - Windows 10
         - Windows 11
-        - Windows 7 (No official support)
-        - Windows 8/8.1 (No official support)
+        - Windows 10
+        - Windows 8 or earlier (No official support)
     validations:
       required: true
   - type: textarea
