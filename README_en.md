@@ -47,6 +47,6 @@ Though our codes are open sourced,your project's access to using our download st
 ## Awesome Edgeless
 Check out some remarkable projects in Edgeless ecology 👇
 
-* [Edgeless Hub](https://github.com/EdgelessPE/edgeless-hub) -🚀 Integraded desktop application for Edgeless
+* [Edgeless Hub(fresh)](https://github.com/EdgelessPE/edgeless-hub-fresh) -🚀 Integraded desktop application for Edgeless
 * [Edgeless Bot](https://github.com/EdgelessPE/edgeless-bot) -🤖 Automatically scrape PortableApps.com (or official release page) and convert into Edgeless plugin package
 * [what-did-ventoy-do](https://github.com/EdgelessPE/what-did-ventoy-do) - Analyse Ventoy log to know what did ventoy do
