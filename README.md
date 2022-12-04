@@ -47,6 +47,6 @@ Clone此仓库，然后将Core部分的文件夹覆盖复制到您的PE项目文
 ## Awesome Edgeless
 查看 Edgeless 生态中值得注意的一些项目👇
 
-* [Edgeless Hub](https://github.com/EdgelessPE/edgeless-hub) -🚀 Edgeless 聚合桌面客户端
+* [Edgeless Hub](https://github.com/EdgelessPE/edgeless-hub-fresh) -🚀 Edgeless 聚合桌面客户端
 * [Edgeless Bot](https://github.com/EdgelessPE/edgeless-bot) -🤖 每日检查上游更新并自动构建插件包
 * [what-did-ventoy-do](https://github.com/EdgelessPE/what-did-ventoy-do) - 分析 Ventoy2Disk 日志以获取 Ventoy 信息
