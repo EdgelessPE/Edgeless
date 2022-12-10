@@ -21,7 +21,7 @@
 ## License
 The original codes of Edgeless Project are open sourced under [Mozilla Public License 2.0](https://www.mozilla.org/en-US/MPL/),except `setTheme.cmd`.
 
->According to MPL2.0,projects containing our original code should notes the copyright of codes（the link of our github page [https://github.com/EdgelessPE/Edgeless](https://github.com/EdgelessPE/Edgeless) or homepage [https://home.edgeless.top/](https://home.edgeless.top/)）.Projects violating this term will be treated as tortious project,Edgeless Team reserve the right to hold such project accountable.
+>According to MPL-2.0,projects containing our original code should notes the copyright of codes（the link of our github page [https://github.com/EdgelessPE/Edgeless](https://github.com/EdgelessPE/Edgeless) or homepage [https://home.edgeless.top/](https://home.edgeless.top/)）.Projects violating this term will be treated as tortious project,Edgeless Team reserve the right to hold such project accountable.
 
 > Obviously,not all of the files in the repository are our original codes.
 
@@ -29,6 +29,9 @@ The original codes of Edgeless Project are open sourced under [Mozilla Public Li
 
 
 ## Quick Start
+### Build 4.x Kernel
+View [EdgelessPE/wimbuilder-component](https://github.com/EdgelessPE/wimbuilder-component)
+### Build 3.x kernel
 Clone this repository,cover your own PE project folder with files in the `Core` folder then begin to fix bugs.
 > Users who lack of the basic knowledge of Windows and WinPE are not recommended to do such work.
 
