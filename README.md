@@ -16,7 +16,7 @@
   <a href="https://home.edgeless.top/jump/qqg.html">QQ群</a>
 </p>
 
-简体中文 | [English](https://github.com/EdgelessPE/Edgeless/blob/master/README_en.md)
+简体中文 | [繁體中文](https://github.com/EdgelessPE/Edgeless/blob/master/README_zh-tw.md) | [English](https://github.com/EdgelessPE/Edgeless/blob/master/README_en.md)
 
 ## 许可证
 Edgeless的**自编代码**基于 [MPL-2.0](https://www.mozilla.org/en-US/MPL/) 协议开源，除了 `setTheme.cmd`。

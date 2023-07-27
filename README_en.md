@@ -16,7 +16,7 @@
   <a href="https://home.edgeless.top/jump/qqg.html">QQ Group</a>
 </p>
 
-[简体中文](https://github.com/EdgelessPE/Edgeless) | English
+[简体中文](https://github.com/EdgelessPE/Edgeless) | [繁體中文](https://github.com/EdgelessPE/Edgeless/blob/master/README_zh-tw.md) | English
 
 ## License
 The original codes of Edgeless Project are open-sourced under [Mozilla Public License 2.0](https://www.mozilla.org/en-US/MPL/), except `setTheme.cmd`.
